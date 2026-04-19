@@ -22,10 +22,10 @@ jobs:
         # Sprawdź dzień tygodnia (0=niedziela, 6=sobota)
         DAY=$(date +%w)
         if [ "$DAY" -eq 0 ] || [ "$DAY" -eq 6 ]; then
-          # Weekend: 90% szans, 20-30 commitów
-          PROB=9
-          MAX_COMMITS=30
-          MIN_COMMITS=20
+          # Weekend: 80% szans, 5-10 commitów
+          PROB=8
+          MAX_COMMITS=10
+          MIN_COMMITS=5
         else
           # Tydzień: 60% szans, 2-3 commity
           PROB=6
