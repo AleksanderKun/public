@@ -1,0 +1,27 @@
+tax_year: 2026
+fiat_currencies:
+  - PLN
+  - USD
+  - EUR
+  - GBP
+stablecoin_map:
+  USDT: USD
+  USDC: USD
+  BUSD: USD
+  TUSD: USD
+  EURT: EUR
+  EUROC: EUR
+nbp_table: A
+nbp_base_url: https://api.nbp.pl/api/exchangerates/rates
+nbp_cache_path: data/external/nbp_rate_cache.json
+ignore_operations:
+  - Transaction Buy
+  - Transaction Spend
+  - Binance Convert
+  - Deposit
+  - Withdraw
+optional_operations:
+  - Airdrop
+  - Reward
+  - Staking
+  - Earn
