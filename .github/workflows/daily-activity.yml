@@ -1,13 +1,13 @@
-name: Daily Activity
+name: Realistic Activity
 
 on:
   schedule:
-    # Co poniedziałek o 9:00 UTC (dostosuj czas)
-    - cron: '0 9 * * 1'
-  workflow_dispatch: # Ręczne uruchomienie
+    # Codziennie o losowej porze (9:00 UTC), ale z filtrem
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
-  update-activity:
+  maybe-update:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,15 +16,53 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Update activity file
+    - name: Check if should update
+      id: should_update
       run: |
-        # Dodaj wpis do pliku aktywności
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - Automated activity update" >> activity_log.md
+        # 30% szans na commit (symuluje nieregularną aktywność)
+        if [ $((RANDOM % 10)) -lt 3 ]; then
+          echo "should_update=true" >> $GITHUB_OUTPUT
+        else
+          echo "should_update=false" >> $GITHUB_OUTPUT
+        fi
 
-    - name: Commit and push changes
+    - name: Update activity (if triggered)
+      if: steps.should_update.outputs.should_update == 'true'
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add activity_log.md
-        git commit -m "Automated activity update - $(date '+%Y-%m-%d')" || echo "No changes to commit"
-        git push
+        # Losowy typ aktywności
+        ACTIVITY_TYPE=$((RANDOM % 4))
+        case $ACTIVITY_TYPE in
+          0)
+            # Update README
+            echo "- $(date '+%Y-%m-%d') - Routine documentation update" >> README.md
+            ;;
+          1)
+            # Update activity log
+            echo "$(date '+%Y-%m-%d %H:%M:%S') - Code review notes" >> activity_log.md
+            ;;
+          2)
+            # Small script update
+            echo "# $(date '+%Y-%m-%d') - Minor optimization" >> scripts/placeholder.py
+            ;;
+          3)
+            # Update dbt model comment
+            echo "-- $(date '+%Y-%m-%d') - Added clarifying comment" >> dbt/models/staging/stg_example.sql
+            ;;
+        esac
+
+    - name: Commit and push (if changes)
+      if: steps.should_update.outputs.should_update == 'true'
+      run: |
+        git config --local user.email "activity@github.com"
+        git config --local user.name "Automated Activity"
+        git add .
+        # Sprawdź czy są zmiany
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          # Losowa wiadomość commit
+          MESSAGES=("Minor updates" "Code cleanup" "Documentation improvements" "Bug fixes" "Feature enhancements")
+          RANDOM_MESSAGE=${MESSAGES[$((RANDOM % ${#MESSAGES[@]}))]}
+          git commit -m "$RANDOM_MESSAGE - $(date '+%Y-%m-%d')"
+          git push
+        fi

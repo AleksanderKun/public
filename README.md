@@ -48,6 +48,15 @@ project-root/
 
 - [Add your data sources here]
 
+## Automated Activity
+
+This repository includes automated workflows that simulate realistic development activity:
+- Random commits with varied messages
+- Updates to documentation, scripts, and models
+- Activity occurs ~30% of days to appear natural
+
+See [activity_log.md](activity_log.md) for details.
+
 ## How to Run
 
 ### Setup
