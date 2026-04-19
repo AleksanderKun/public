@@ -1,0 +1,126 @@
+[0m16:03:03.814938 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1C967D10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1C967790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1C967510>]}
+
+
+============================== 16:03:03.826046 | 7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe ==============================
+[0m16:03:03.826046 [info ] [MainThread]: Running with dbt=1.11.8
+[0m16:03:03.826046 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\Aleksander\\.vscode\\repository\\public', 'indirect_selection': 'eager', 'invocation_command': 'dbt run', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\Aleksander\\.vscode\\repository\\public\\logs'}
+[0m16:03:03.942714 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1CB16050>]}
+[0m16:03:03.970468 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1B04B8D0>]}
+[0m16:03:03.970468 [info ] [MainThread]: Registered adapter: sqlite=1.10.0
+[0m16:03:04.109390 [debug] [MainThread]: checksum: 7d524ac048c2100769df89d592e662e060a73ca564e31bd9c2a37efdfe8d8ab6, vars: {}, profile: , target: , version: 1.11.8
+[0m16:03:04.109390 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m16:03:04.109390 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1C95E250>]}
+[0m16:03:05.220478 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1A943810>]}
+[0m16:03:05.253803 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\Aleksander\.vscode\repository\public\target\manifest.json
+[0m16:03:05.265538 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\Aleksander\.vscode\repository\public\target\semantic_manifest.json
+[0m16:03:05.287148 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1CE03650>]}
+[0m16:03:05.287148 [info ] [MainThread]: Found 1 model, 416 macros
+[0m16:03:05.287148 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1CD34050>]}
+[0m16:03:05.287148 [info ] [MainThread]: 
+[0m16:03:05.287148 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m16:03:05.287148 [info ] [MainThread]: 
+[0m16:03:05.287148 [debug] [MainThread]: Acquiring new sqlite connection 'master'
+[0m16:03:05.292706 [debug] [ThreadPool]: Acquiring new sqlite connection 'list_dbt.db'
+[0m16:03:06.592695 [debug] [ThreadPool]: Using sqlite connection "list_dbt.db"
+[0m16:03:06.592695 [debug] [ThreadPool]: On list_dbt.db: BEGIN
+[0m16:03:06.592695 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:03:06.592695 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m16:03:06.592695 [debug] [ThreadPool]: Using sqlite connection "list_dbt.db"
+[0m16:03:06.592695 [debug] [ThreadPool]: On list_dbt.db: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "default", "target_name": "dev", "connection_name": "list_dbt.db"} */
+
+        pragma database_list
+    
+[0m16:03:06.592695 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:03:06.592695 [debug] [ThreadPool]: On list_dbt.db: ROLLBACK
+[0m16:03:06.592695 [debug] [ThreadPool]: On list_dbt.db: Close
+[0m16:03:06.598273 [debug] [ThreadPool]: Acquiring new sqlite connection 'list_dbt.db_main'
+[0m16:03:06.598273 [debug] [ThreadPool]: Using sqlite connection "list_dbt.db_main"
+[0m16:03:06.598273 [debug] [ThreadPool]: On list_dbt.db_main: BEGIN
+[0m16:03:06.603820 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:03:06.603820 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m16:03:06.603820 [debug] [ThreadPool]: Using sqlite connection "list_dbt.db_main"
+[0m16:03:06.603820 [debug] [ThreadPool]: On list_dbt.db_main: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "default", "target_name": "dev", "connection_name": "list_dbt.db_main"} */
+
+        pragma database_list
+    
+[0m16:03:06.603820 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:03:06.603820 [debug] [ThreadPool]: Using sqlite connection "list_dbt.db_main"
+[0m16:03:06.603820 [debug] [ThreadPool]: On list_dbt.db_main: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "default", "target_name": "dev", "connection_name": "list_dbt.db_main"} */
+
+            SELECT
+                'dbt.db' as database
+                ,name
+                ,'main' AS schema
+                ,type as data_type
+            FROM
+                main.sqlite_master
+            WHERE
+                name NOT LIKE 'sqlite_%'
+        
+[0m16:03:06.603820 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:03:06.603820 [debug] [ThreadPool]: On list_dbt.db_main: ROLLBACK
+[0m16:03:06.603820 [debug] [ThreadPool]: On list_dbt.db_main: Close
+[0m16:03:06.603820 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1CD34050>]}
+[0m16:03:06.603820 [debug] [MainThread]: Using sqlite connection "master"
+[0m16:03:06.603820 [debug] [MainThread]: On master: BEGIN
+[0m16:03:06.609334 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:03:06.609334 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m16:03:06.609334 [debug] [MainThread]: On master: COMMIT
+[0m16:03:06.609334 [debug] [MainThread]: Using sqlite connection "master"
+[0m16:03:06.609334 [debug] [MainThread]: On master: COMMIT
+[0m16:03:06.609334 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:03:06.609334 [debug] [MainThread]: On master: Close
+[0m16:03:06.626029 [debug] [Thread-1 (]: Began running node model.public.example
+[0m16:03:06.626029 [info ] [Thread-1 (]: 1 of 1 START sql view model main.example ....................................... [RUN]
+[0m16:03:06.626029 [debug] [Thread-1 (]: Acquiring new sqlite connection 'model.public.example'
+[0m16:03:06.626029 [debug] [Thread-1 (]: Began compiling node model.public.example
+[0m16:03:06.631578 [debug] [Thread-1 (]: Writing injected SQL for node "model.public.example"
+[0m16:03:06.631578 [debug] [Thread-1 (]: Began executing node model.public.example
+[0m16:03:06.637129 [debug] [Thread-1 (]: Writing runtime sql for node "model.public.example"
+[0m16:03:06.642692 [debug] [Thread-1 (]: Using sqlite connection "model.public.example"
+[0m16:03:06.643882 [debug] [Thread-1 (]: On model.public.example: BEGIN
+[0m16:03:06.643882 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m16:03:06.644886 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:03:06.644886 [debug] [Thread-1 (]: Using sqlite connection "model.public.example"
+[0m16:03:06.644886 [debug] [Thread-1 (]: On model.public.example: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "default", "target_name": "dev", "node_id": "model.public.example"} */
+
+    
+    create view main."example" as
+    -- models/example.sql
+select 1 as id, 'hello' as message;
+[0m16:03:06.645886 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m16:03:06.649314 [debug] [Thread-1 (]: On model.public.example: COMMIT
+[0m16:03:06.650313 [debug] [Thread-1 (]: Using sqlite connection "model.public.example"
+[0m16:03:06.650313 [debug] [Thread-1 (]: On model.public.example: COMMIT
+[0m16:03:06.653333 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m16:03:06.659154 [debug] [Thread-1 (]: On model.public.example: Close
+[0m16:03:06.660156 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '7fc7f8eb-94a1-4ddb-b1be-6c50c78dd3fe', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A1D31ED10>]}
+[0m16:03:06.661155 [info ] [Thread-1 (]: 1 of 1 OK created sql view model main.example .................................. [[32mOK[0m in 0.03s]
+[0m16:03:06.662155 [debug] [Thread-1 (]: Finished running node model.public.example
+[0m16:03:06.663155 [debug] [MainThread]: Using sqlite connection "master"
+[0m16:03:06.663155 [debug] [MainThread]: On master: BEGIN
+[0m16:03:06.663155 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m16:03:06.664891 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m16:03:06.664891 [debug] [MainThread]: On master: COMMIT
+[0m16:03:06.664891 [debug] [MainThread]: Using sqlite connection "master"
+[0m16:03:06.665962 [debug] [MainThread]: On master: COMMIT
+[0m16:03:06.665962 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:03:06.666962 [debug] [MainThread]: On master: Close
+[0m16:03:06.666962 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m16:03:06.666962 [debug] [MainThread]: Connection 'list_dbt.db' was properly closed.
+[0m16:03:06.667959 [debug] [MainThread]: Connection 'list_dbt.db_main' was properly closed.
+[0m16:03:06.667959 [debug] [MainThread]: Connection 'model.public.example' was properly closed.
+[0m16:03:06.667959 [info ] [MainThread]: 
+[0m16:03:06.668959 [info ] [MainThread]: Finished running 1 view model in 0 hours 0 minutes and 1.38 seconds (1.38s).
+[0m16:03:06.669960 [debug] [MainThread]: Command end result
+[0m16:03:06.687149 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\Aleksander\.vscode\repository\public\target\manifest.json
+[0m16:03:06.687149 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\Aleksander\.vscode\repository\public\target\semantic_manifest.json
+[0m16:03:06.692695 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\Aleksander\.vscode\repository\public\target\run_results.json
+[0m16:03:06.692695 [info ] [MainThread]: 
+[0m16:03:06.692695 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m16:03:06.692695 [info ] [MainThread]: 
+[0m16:03:06.692695 [info ] [MainThread]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=1
+[0m16:03:06.692695 [debug] [MainThread]: Command `dbt run` succeeded at 16:03:06.692695 after 2.93 seconds
+[0m16:03:06.692695 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A14B24450>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A14E12B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029A14E12AD0>]}
+[0m16:03:06.692695 [debug] [MainThread]: Flushing usage events
+[0m16:03:07.420753 [debug] [MainThread]: An error was encountered while trying to flush usage events
