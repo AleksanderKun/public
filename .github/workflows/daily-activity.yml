@@ -2,7 +2,7 @@ name: Realistic Activity
 
 on:
   schedule:
-    # Codziennie o losowej porze (9:00 UTC), ale z filtrem
+    # Codziennie o losowej porze (9:00 UTC)
     - cron: '0 9 * * *'
   workflow_dispatch:
 
@@ -16,53 +16,68 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Check if should update
-      id: should_update
+    - name: Determine activity level
+      id: activity
       run: |
-        # 30% szans na commit (symuluje nieregularną aktywność)
-        if [ $((RANDOM % 10)) -lt 3 ]; then
+        # Sprawdź dzień tygodnia (0=niedziela, 6=sobota)
+        DAY=$(date +%w)
+        if [ "$DAY" -eq 0 ] || [ "$DAY" -eq 6 ]; then
+          # Weekend: 90% szans, 20-30 commitów
+          PROB=9
+          MAX_COMMITS=30
+          MIN_COMMITS=20
+        else
+          # Tydzień: 60% szans, 2-3 commity
+          PROB=6
+          MAX_COMMITS=3
+          MIN_COMMITS=2
+        fi
+
+        # Czy uruchomić?
+        if [ $((RANDOM % 10)) -lt $PROB ]; then
+          NUM_COMMITS=$((RANDOM % (MAX_COMMITS - MIN_COMMITS + 1) + MIN_COMMITS))
           echo "should_update=true" >> $GITHUB_OUTPUT
+          echo "num_commits=$NUM_COMMITS" >> $GITHUB_OUTPUT
         else
           echo "should_update=false" >> $GITHUB_OUTPUT
         fi
 
-    - name: Update activity (if triggered)
-      if: steps.should_update.outputs.should_update == 'true'
+    - name: Generate multiple commits (if triggered)
+      if: steps.activity.outputs.should_update == 'true'
       run: |
-        # Losowy typ aktywności
-        ACTIVITY_TYPE=$((RANDOM % 4))
-        case $ACTIVITY_TYPE in
-          0)
-            # Update README
-            echo "- $(date '+%Y-%m-%d') - Routine documentation update" >> README.md
-            ;;
-          1)
-            # Update activity log
-            echo "$(date '+%Y-%m-%d %H:%M:%S') - Code review notes" >> activity_log.md
-            ;;
-          2)
-            # Small script update
-            echo "# $(date '+%Y-%m-%d') - Minor optimization" >> scripts/placeholder.py
-            ;;
-          3)
-            # Update dbt model comment
-            echo "-- $(date '+%Y-%m-%d') - Added clarifying comment" >> dbt/models/staging/stg_example.sql
-            ;;
-        esac
+        NUM_COMMITS=${{ steps.activity.outputs.num_commits }}
+        for i in $(seq 1 $NUM_COMMITS); do
+          # Losowy typ aktywności
+          ACTIVITY_TYPE=$((RANDOM % 4))
+          case $ACTIVITY_TYPE in
+            0)
+              # Update README
+              echo "- $(date '+%Y-%m-%d %H:%M:%S') - Routine documentation update $i" >> README.md
+              ;;
+            1)
+              # Update activity log
+              echo "$(date '+%Y-%m-%d %H:%M:%S') - Code review notes $i" >> activity_log.md
+              ;;
+            2)
+              # Small script update
+              echo "# $(date '+%Y-%m-%d %H:%M:%S') - Minor optimization $i" >> scripts/placeholder.py
+              ;;
+            3)
+              # Update dbt model comment
+              echo "-- $(date '+%Y-%m-%d %H:%M:%S') - Added clarifying comment $i" >> dbt/models/staging/stg_example.sql
+              ;;
+          esac
 
-    - name: Commit and push (if changes)
-      if: steps.should_update.outputs.should_update == 'true'
-      run: |
-        git config --local user.email "activity@github.com"
-        git config --local user.name "Automated Activity"
-        git add .
-        # Sprawdź czy są zmiany
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-        else
-          # Losowa wiadomość commit
-          MESSAGES=("Minor updates" "Code cleanup" "Documentation improvements" "Bug fixes" "Feature enhancements")
+          # Commit po każdej zmianie
+          git config --local user.email "activity@github.com"
+          git config --local user.name "Automated Activity"
+          git add .
+          MESSAGES=("Minor updates" "Code cleanup" "Documentation improvements" "Bug fixes" "Feature enhancements" "Refactoring" "Testing updates" "Performance optimization" "Code review changes" "Dependency updates" "Logging improvements" "Error handling" "UI tweaks" "Database optimizations" "Security patches")
           RANDOM_MESSAGE=${MESSAGES[$((RANDOM % ${#MESSAGES[@]}))]}
-          git commit -m "$RANDOM_MESSAGE - $(date '+%Y-%m-%d')"
-          git push
-        fi
+          git commit -m "$RANDOM_MESSAGE $i - $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
+        done
+
+    - name: Push all commits
+      if: steps.activity.outputs.should_update == 'true'
+      run: |
+        git push
