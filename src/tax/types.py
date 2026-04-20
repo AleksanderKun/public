@@ -75,6 +75,8 @@ class Transaction:
     source: str = "binance"
     account: str = ""
     notes: str = ""
+    contract: str = ""
+    direction: str = ""
 
     def __post_init__(self) -> None:
         """Normalize transaction data."""
@@ -83,6 +85,8 @@ class Transaction:
         self.source = self.source.strip().lower()
         self.account = self.account.strip()
         self.notes = self.notes.strip()
+        self.contract = self.contract.strip().upper()
+        self.direction = self.direction.strip().upper()
 
 
 @dataclass

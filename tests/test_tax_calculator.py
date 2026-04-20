@@ -130,6 +130,7 @@ def test_normalize_bybit_csv(tmp_path: Path) -> None:
     csv_content = (
         "UID: 123\n"
         "Uid,Currency,Contract,Type,Direction,Quantity,Filled Price,Fee Paid,Cash Flow,Change,Wallet Balance,Action,Time(UTC)\n"
+        "123,AAVE,AAVEUSDT,TRADE,BUY,0.226,204.1,0,0.226,0.225774,1.540458,--,2025-01-09 10:00:00\n"
         "123,USDT,ETHUSDT,TRADE,BUY,0.1,2000,0,-0.1001,-0.1001,1000,,2025-01-10 10:00:00\n"
         "123,USDT,ETHUSDT,TRADE,SELL,-0.2,2000,0,0.2002,0.2002,1000,,2025-01-11 10:00:00\n"
     )
@@ -145,6 +146,24 @@ def test_normalize_bybit_csv(tmp_path: Path) -> None:
     assert summary.total_cost_pln == 0.4
     assert summary.total_revenue_pln == 0.8
     assert summary.income == 0.4
+
+
+def test_classify_operation_binance_deposit_with_fiat() -> None:
+    """Test Binance fiat deposit as cost."""
+    config = load_tax_config("config/tax_config.yml")
+    calculator = CryptoTaxCalculator(config)
+
+    context = {"asset": "EUR"}
+    assert calculator.classify_operation("Deposit", context) == OperationClassification.COST
+
+
+def test_classify_operation_binance_withdraw_fiat() -> None:
+    """Test Binance fiat withdraw as revenue."""
+    config = load_tax_config("config/tax_config.yml")
+    calculator = CryptoTaxCalculator(config)
+
+    context = {"asset": "PLN"}
+    assert calculator.classify_operation("Withdraw", context) == OperationClassification.REVENUE
 
 
 # ============================================================================

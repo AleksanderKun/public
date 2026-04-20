@@ -143,6 +143,8 @@ class CryptoTaxCalculator:
         amounts = []
         notes = []
         accounts = []
+        contracts = []
+        directions = []
 
         for row in frame.to_dicts():
             try:
@@ -152,19 +154,20 @@ class CryptoTaxCalculator:
                 continue
 
             asset = str(row.get("asset", "") or "").strip().upper()
-            if not asset:
-                asset = str(row.get("contract", "") or "").strip().upper()
+            contract = str(row.get("contract", "") or "").strip().upper()
+            direction = str(row.get("direction", "") or "").strip().upper()
+            currency = asset
 
             operation = " ".join(
                 part
                 for part in (
-                    str(row.get("type", "") or "").strip(),
-                    str(row.get("direction", "") or "").strip(),
+                    str(row.get("type", "") or "").strip().upper(),
+                    direction,
                 )
                 if part
             )
             if not operation:
-                operation = "Unknown Bybit Operation"
+                operation = "UNKNOWN BYBIT OPERATION"
 
             try:
                 amounts.append(float(row.get("amount", 0.0) or 0.0))
@@ -177,15 +180,17 @@ class CryptoTaxCalculator:
                     filter(
                         None,
                         [
-                            str(row.get("contract", "") or "").strip(),
+                            contract,
                             str(row.get("action", "") or "").strip(),
                         ],
                     )
                 ).strip()
             )
-            assets.append(asset)
+            assets.append(currency)
             operations.append(operation)
             accounts.append(str(row.get("account", "") or "").strip())
+            contracts.append(contract)
+            directions.append(direction)
 
         normalized = pl.DataFrame(
             {
@@ -195,6 +200,8 @@ class CryptoTaxCalculator:
                 "amount": amounts,
                 "notes": notes,
                 "account": accounts,
+                "contract": contracts,
+                "direction": directions,
                 "source": ["bybit"] * len(timestamps),
             }
         )
@@ -350,6 +357,17 @@ class CryptoTaxCalculator:
         if op in ("Fiat Withdraw", "Transaction Sold"):
             return OperationClassification.REVENUE
 
+        # Binance deposit/withdraw with fiat should be included
+        if op == "Deposit" and context and isinstance(context, dict):
+            asset = str(context.get("asset", "")).strip().upper()
+            if asset in self.config.fiat_currencies:
+                return OperationClassification.COST
+
+        if op in ("Withdraw",) and context and isinstance(context, dict):
+            asset = str(context.get("asset", "")).strip().upper()
+            if asset in self.config.fiat_currencies:
+                return OperationClassification.REVENUE
+
         # Non-taxable operations (crypto-to-crypto)
         if any(
             op.startswith(token)
@@ -357,8 +375,6 @@ class CryptoTaxCalculator:
                 "Transaction Buy",
                 "Transaction Spend",
                 "Binance Convert",
-                "Deposit",
-                "Withdraw",
             )
         ):
             return OperationClassification.IGNORED
@@ -375,18 +391,20 @@ class CryptoTaxCalculator:
 
             return OperationClassification.FEE
 
-        # Bybit trade lines can be classified based on fiat change direction
+        # Bybit trade lines are taxable only for fiat currency trades.
         if context and isinstance(context, dict):
             source = str(context.get("source", "")).strip().lower()
             asset = str(context.get("asset", "")).strip().upper()
             amount = float(context.get("amount", 0.0) or 0.0)
-            if source == "bybit" and op.startswith("TRADE"):
-                fiat_currency = self.config.stablecoin_map.get(asset, asset)
-                if fiat_currency in self.config.fiat_currencies:
-                    if amount < 0:
-                        return OperationClassification.COST
-                    if amount > 0:
-                        return OperationClassification.REVENUE
+            fiat_asset = self.config.stablecoin_map.get(asset, asset)
+            if source == "bybit" and op == "TRADE BUY":
+                if fiat_asset in self.config.fiat_currencies:
+                    return OperationClassification.COST
+                return OperationClassification.IGNORED
+            if source == "bybit" and op == "TRADE SELL":
+                if fiat_asset in self.config.fiat_currencies:
+                    return OperationClassification.REVENUE
+                return OperationClassification.IGNORED
 
         # Optional operations (may be treated as income if configured)
         if any(token in op for token in ("Airdrop", "Reward", "Staking", "Earn")):
@@ -497,6 +515,8 @@ class CryptoTaxCalculator:
                     source=row.get("source", "binance"),
                     account=row.get("account", ""),
                     notes=row.get("notes", ""),
+                    contract=row.get("contract", ""),
+                    direction=row.get("direction", ""),
                 )
                 transactions.append(txn)
             except Exception as e:
@@ -527,6 +547,8 @@ class CryptoTaxCalculator:
                 "asset": txn.asset,
                 "amount": txn.amount,
                 "source": txn.source,
+                "contract": txn.contract,
+                "direction": txn.direction,
             }
             classification = self.classify_operation(txn.operation, context)
             if classification == OperationClassification.FEE:
