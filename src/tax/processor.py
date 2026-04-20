@@ -76,9 +76,8 @@ class CryptoTaxCalculator:
         for fmt in self.DATE_FORMATS:
             try:
                 parsed = datetime.strptime(candidate, fmt)
-                # Handle 2-digit years
-                if parsed.year < 100:
-                    parsed = parsed.replace(year=parsed.year + 2000)
+                if "%y" in fmt and parsed.year < 2000:
+                    parsed = parsed.replace(year=parsed.year + 100)
                 return parsed
             except ValueError:
                 continue
@@ -86,6 +85,123 @@ class CryptoTaxCalculator:
         msg = f"Unable to parse timestamp: {value!r}"
         logger.error(msg)
         raise ValueError(msg)
+
+    def _detect_csv_format(self, data_path: Path) -> str:
+        """Detect the CSV format based on header contents."""
+        with data_path.open("r", encoding="utf-8") as fp:
+            first_line = fp.readline().strip().lstrip("\ufeff").upper()
+
+        if first_line.startswith("UID:") or "TIME(UTC)" in first_line:
+            return "bybit"
+        if "CZAS" in first_line and "OPERACJA" in first_line:
+            return "binance"
+        if "UID," in first_line and "TIME(UTC)" in first_line:
+            return "bybit"
+
+        return "binance"
+
+    def _should_skip_first_row(self, data_path: Path) -> bool:
+        """Return True when the first CSV row contains metadata rather than headers."""
+        with data_path.open("r", encoding="utf-8") as fp:
+            first_line = fp.readline().strip().lstrip("\ufeff")
+        return first_line.upper().startswith("UID:")
+
+    def _normalize_bybit(self, frame: pl.DataFrame) -> pl.DataFrame:
+        """Normalize Bybit CSV rows into the standard transaction shape."""
+        column_mapping = {
+            "Uid": "account",
+            "Currency": "asset",
+            "Contract": "contract",
+            "Type": "type",
+            "Direction": "direction",
+            "Change": "amount",
+            "Time(UTC)": "timestamp",
+            "Action": "action",
+        }
+
+        for bybit_col, standard_col in column_mapping.items():
+            if bybit_col in frame.columns:
+                frame = frame.rename({bybit_col: standard_col})
+
+        required_cols = ["timestamp", "asset", "type", "direction", "amount"]
+        missing = [c for c in required_cols if c not in frame.columns]
+        if missing:
+            msg = f"Missing required Bybit columns: {missing}"
+            logger.error(msg)
+            raise ValueError(msg)
+
+        if "contract" not in frame.columns:
+            frame = frame.with_columns(pl.lit("").alias("contract"))
+        if "action" not in frame.columns:
+            frame = frame.with_columns(pl.lit("").alias("action"))
+        if "account" not in frame.columns:
+            frame = frame.with_columns(pl.lit("").alias("account"))
+
+        timestamps = []
+        operations = []
+        assets = []
+        amounts = []
+        notes = []
+        accounts = []
+
+        for row in frame.to_dicts():
+            try:
+                timestamps.append(self.parse_timestamp(row["timestamp"]))
+            except ValueError as e:
+                logger.warning("Skipping Bybit row with invalid timestamp: %s", e)
+                continue
+
+            asset = str(row.get("asset", "") or "").strip().upper()
+            if not asset:
+                asset = str(row.get("contract", "") or "").strip().upper()
+
+            operation = " ".join(
+                part
+                for part in (
+                    str(row.get("type", "") or "").strip(),
+                    str(row.get("direction", "") or "").strip(),
+                )
+                if part
+            )
+            if not operation:
+                operation = "Unknown Bybit Operation"
+
+            try:
+                amounts.append(float(row.get("amount", 0.0) or 0.0))
+            except (TypeError, ValueError):
+                logger.warning("Invalid Bybit amount: %s, using 0.0", row.get("amount"))
+                amounts.append(0.0)
+
+            notes.append(
+                " ".join(
+                    filter(
+                        None,
+                        [
+                            str(row.get("contract", "") or "").strip(),
+                            str(row.get("action", "") or "").strip(),
+                        ],
+                    )
+                ).strip()
+            )
+            assets.append(asset)
+            operations.append(operation)
+            accounts.append(str(row.get("account", "") or "").strip())
+
+        normalized = pl.DataFrame(
+            {
+                "timestamp": timestamps,
+                "operation": operations,
+                "asset": assets,
+                "amount": amounts,
+                "notes": notes,
+                "account": accounts,
+                "source": ["bybit"] * len(timestamps),
+            }
+        )
+
+        normalized = normalized.sort("timestamp")
+        logger.info("Loaded and normalized %d Bybit transactions", normalized.shape[0])
+        return normalized
 
     def normalize(self, data_path: Path) -> pl.DataFrame:
         """
@@ -114,16 +230,25 @@ class CryptoTaxCalculator:
 
         logger.info("Loading transaction data from %s", data_path)
         
+        file_format = self._detect_csv_format(data_path)
+        skip_rows = 1 if self._should_skip_first_row(data_path) else 0
+
         try:
             frame = pl.read_csv(
                 data_path,
+                skip_rows=skip_rows,
                 try_parse_dates=False,
                 infer_schema_length=1000,
+                ignore_errors=True,
+                truncate_ragged_lines=True,
             )
         except Exception as e:
             msg = f"Failed to read CSV: {e}"
             logger.error(msg)
             raise ValueError(msg) from e
+
+        if file_format == "bybit":
+            return self._normalize_bybit(frame)
 
         # Map Binance column names to standardized names
         column_mapping = {
@@ -148,19 +273,18 @@ class CryptoTaxCalculator:
             logger.error(msg)
             raise ValueError(msg)
 
-        # Add optional columns with defaults
         if "notes" not in frame.columns:
             frame = frame.with_columns(pl.lit("").alias("notes"))
         if "account" not in frame.columns:
             frame = frame.with_columns(pl.lit("").alias("account"))
 
-        # Parse and normalize data
         timestamps = []
         operations = []
         assets = []
         amounts = []
         notes = []
         accounts = []
+        sources = []
 
         for row in frame.to_dicts():
             try:
@@ -181,8 +305,8 @@ class CryptoTaxCalculator:
 
             notes.append(str(row.get("notes", "")).strip())
             accounts.append(str(row.get("account", "")).strip())
+            sources.append("binance")
 
-        # Reconstruct normalized frame
         normalized = pl.DataFrame(
             {
                 "timestamp": timestamps,
@@ -191,10 +315,10 @@ class CryptoTaxCalculator:
                 "amount": amounts,
                 "notes": notes,
                 "account": accounts,
+                "source": sources,
             }
         )
 
-        # Sort by timestamp
         normalized = normalized.sort("timestamp")
         logger.info("Loaded and normalized %d transactions", normalized.shape[0])
         return normalized
@@ -251,6 +375,19 @@ class CryptoTaxCalculator:
 
             return OperationClassification.FEE
 
+        # Bybit trade lines can be classified based on fiat change direction
+        if context and isinstance(context, dict):
+            source = str(context.get("source", "")).strip().lower()
+            asset = str(context.get("asset", "")).strip().upper()
+            amount = float(context.get("amount", 0.0) or 0.0)
+            if source == "bybit" and op.startswith("TRADE"):
+                fiat_currency = self.config.stablecoin_map.get(asset, asset)
+                if fiat_currency in self.config.fiat_currencies:
+                    if amount < 0:
+                        return OperationClassification.COST
+                    if amount > 0:
+                        return OperationClassification.REVENUE
+
         # Optional operations (may be treated as income if configured)
         if any(token in op for token in ("Airdrop", "Reward", "Staking", "Earn")):
             return OperationClassification.OPTIONAL
@@ -258,6 +395,34 @@ class CryptoTaxCalculator:
         # Default: ignore unknown operations
         logger.debug("Unknown operation, classifying as ignored: %s", op)
         return OperationClassification.IGNORED
+
+    def _infer_fee_classification(
+        self, txn: Transaction, index: int, transactions: List[Transaction]
+    ) -> OperationClassification:
+        """Infer fee classification from neighboring taxable transactions."""
+        for offset in (-1, 1, -2, 2, -3, 3):
+            neighbor_index = index + offset
+            if neighbor_index < 0 or neighbor_index >= len(transactions):
+                continue
+
+            neighbor = transactions[neighbor_index]
+            if "Fee" in neighbor.operation:
+                continue
+
+            neighbor_class = self.classify_operation(
+                neighbor.operation,
+                {
+                    "asset": neighbor.asset,
+                    "amount": neighbor.amount,
+                    "source": neighbor.source,
+                },
+            )
+            if neighbor_class == OperationClassification.COST:
+                return OperationClassification.COST_FEE
+            if neighbor_class == OperationClassification.REVENUE:
+                return OperationClassification.REVENUE_FEE
+
+        return OperationClassification.FEE
 
     def _calculate_pln_value(self, amount: float, asset: str, transaction_date: datetime) -> float:
         """
@@ -329,6 +494,7 @@ class CryptoTaxCalculator:
                     operation=row["operation"],
                     asset=row["asset"],
                     amount=row["amount"],
+                    source=row.get("source", "binance"),
                     account=row.get("account", ""),
                     notes=row.get("notes", ""),
                 )
@@ -347,17 +513,25 @@ class CryptoTaxCalculator:
         transactions_processed = 0
         transactions_ignored = 0
 
-        for txn in transactions:
+        for index, txn in enumerate(transactions):
             # Classify operation
             group_key = txn.timestamp.isoformat()
             group = groups.get(group_key, [txn])
             related_classifications = {
-                self.classify_operation(t.operation)
+                self.classify_operation(t.operation, {"asset": t.asset, "amount": t.amount, "source": t.source})
                 for t in group
                 if t.operation != txn.operation
             }
-            context = {"related_classifications": related_classifications}
+            context = {
+                "related_classifications": related_classifications,
+                "asset": txn.asset,
+                "amount": txn.amount,
+                "source": txn.source,
+            }
             classification = self.classify_operation(txn.operation, context)
+            if classification == OperationClassification.FEE:
+                inferred = self._infer_fee_classification(txn, index, transactions)
+                classification = inferred
 
             # Calculate PLN value
             pln_value = self._calculate_pln_value(

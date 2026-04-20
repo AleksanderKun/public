@@ -53,7 +53,7 @@ See README.md for detailed documentation.
         "--input",
         required=True,
         type=Path,
-        help="Path to Binance-style CSV input file (required)",
+        help="Path to Binance or Bybit CSV input file (required)",
     )
 
     parser.add_argument(

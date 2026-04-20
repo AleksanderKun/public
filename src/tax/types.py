@@ -66,12 +66,13 @@ class TaxConfig:
 
 @dataclass
 class Transaction:
-    """Represents a single transaction from Binance CSV."""
+    """Represents a single transaction from Binance or Bybit CSV."""
 
     timestamp: datetime
     operation: str
     asset: str
     amount: float
+    source: str = "binance"
     account: str = ""
     notes: str = ""
 
@@ -79,6 +80,7 @@ class Transaction:
         """Normalize transaction data."""
         self.operation = self.operation.strip()
         self.asset = self.asset.upper().strip()
+        self.source = self.source.strip().lower()
         self.account = self.account.strip()
         self.notes = self.notes.strip()
 

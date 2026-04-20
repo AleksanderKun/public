@@ -125,6 +125,28 @@ def test_normalize_csv(tmp_path: Path) -> None:
     assert frame["amount"][0] == 100.0
 
 
+def test_normalize_bybit_csv(tmp_path: Path) -> None:
+    """Test Bybit CSV normalization and classification."""
+    csv_content = (
+        "UID: 123\n"
+        "Uid,Currency,Contract,Type,Direction,Quantity,Filled Price,Fee Paid,Cash Flow,Change,Wallet Balance,Action,Time(UTC)\n"
+        "123,USDT,ETHUSDT,TRADE,BUY,0.1,2000,0,-0.1001,-0.1001,1000,,2025-01-10 10:00:00\n"
+        "123,USDT,ETHUSDT,TRADE,SELL,-0.2,2000,0,0.2002,0.2002,1000,,2025-01-11 10:00:00\n"
+    )
+    csv_path = tmp_path / "bybit.csv"
+    csv_path.write_text(csv_content, encoding="utf-8")
+
+    config = load_tax_config("config/tax_config.yml")
+    rate_service = MockRateService(rate=4.0)
+    calculator = CryptoTaxCalculator(config, rate_service=rate_service)
+
+    summary, ledger = calculator.compute_tax(csv_path)
+
+    assert summary.total_cost_pln == 0.4
+    assert summary.total_revenue_pln == 0.8
+    assert summary.income == 0.4
+
+
 # ============================================================================
 # Operation Classification Tests
 # ============================================================================
