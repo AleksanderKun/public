@@ -57,7 +57,7 @@ test:
     expire_in: 1 week
 
 # -------------------
-# TYPE CHECK (OPTIONAL)
+# TYPE CHECK
 # -------------------
 mypy:
   extends: .default_python
@@ -67,7 +67,7 @@ mypy:
     - poetry run mypy .
 
 # -------------------
-# SECURITY SCAN (OPTIONAL)
+# SECURITY SCAN
 # -------------------
 bandit:
   extends: .default_python
@@ -77,24 +77,30 @@ bandit:
     - poetry run bandit -r .
 
 # -------------------
-# DAILY COMMIT (REAL CHANGE)
+# DAILY COMMIT (SAFE VERSION)
 # -------------------
 daily_update:
   stage: automation
   image: python:${PYTHON_VERSION}-slim
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
   before_script:
     - apt-get update && apt-get install -y git
     - git config --global user.name "CI Bot"
     - git config --global user.email "ci-bot@example.com"
-  script:
-    - if [ $((RANDOM % 5)) -ne 0 ]; then echo "Skip run"; exit 0; fi
 
-    - echo "Last update: $(date)" > LAST_RUN.md
-    - git add LAST_RUN.md
-    - git commit -m "chore: daily update [skip ci]" || echo "No changes"
-    - git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
+  script:
+    - |
+        if [ $((RANDOM % 5)) -ne 0 ]; then
+          echo "Skip run"
+          exit 0
+        fi
+
+        echo "Last update: $(date)" > LAST_RUN.md
+        git add LAST_RUN.md
+        git commit -m "chore: daily update [skip ci]" || echo "No changes"
+        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
 
 # -------------------
 # DAILY TAG (VERSIONING)
@@ -104,11 +110,74 @@ daily_tag:
   image: python:${PYTHON_VERSION}-slim
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
   before_script:
     - apt-get update && apt-get install -y git
     - git config --global user.name "CI Bot"
     - git config --global user.email "ci-bot@example.com"
+
   script:
     - VERSION=$(date +%Y.%m.%d)
     - git tag "v$VERSION" || echo "Tag exists"
     - git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
+
+# -------------------
+# SMART ACTIVITY BOT
+# -------------------
+smart_activity:
+  stage: automation
+  image: python:${PYTHON_VERSION}-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+  before_script:
+    - apt-get update && apt-get install -y git
+    - git config --global user.name "CI Bot"
+    - git config --global user.email "ci-bot@example.com"
+    - git fetch origin
+
+  script:
+    - |
+        DAY=$(date +%u)
+
+        if [ "$DAY" -ge 6 ]; then
+          echo "Weekend - low activity"
+        fi
+
+        if [ $((RANDOM % 10)) -lt 7 ]; then
+          echo "No activity today"
+          exit 0
+        fi
+
+        TYPE=$((RANDOM % 3))
+
+        mkdir -p logs
+        echo "Last run: $(date)" >> logs/activity.log
+        echo "Health check: OK $(date)" >> logs/health.log
+
+        if [ ! -f VERSION ]; then
+          echo "0.1.0" > VERSION
+        fi
+
+        VERSION=$(cat VERSION)
+        IFS='.' read MAJOR MINOR PATCH <<< "$VERSION"
+        PATCH=$((PATCH + 1))
+        NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+        echo $NEW_VERSION > VERSION
+
+        if [ "$TYPE" -eq 0 ]; then
+          MSG="docs: update logs and documentation"
+        elif [ "$TYPE" -eq 1 ]; then
+          MSG="fix: minor stability improvements"
+        else
+          MSG="refactor: internal cleanup"
+        fi
+
+        git add logs/ VERSION
+
+        git commit -m "$MSG [skip ci]" || echo "No changes"
+
+        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
+
+        git tag "v$NEW_VERSION" || echo "tag exists"
+        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
