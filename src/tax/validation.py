@@ -91,7 +91,14 @@ class TransactionValidator:
             return self._get_results()
 
         if file_format == "bybit":
-            required_cols = ["Uid", "Currency", "Type", "Direction", "Change", "Time(UTC)"]
+            required_cols = [
+                "Uid",
+                "Currency",
+                "Type",
+                "Direction",
+                "Change",
+                "Time(UTC)",
+            ]
         else:
             required_cols = ["Czas", "Operacja", "Moneta", "Zmien"]
 

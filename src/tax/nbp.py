@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 import logging
 from datetime import date, timedelta
-from pathlib import Path
 from typing import Dict
 
 import requests
@@ -52,7 +51,9 @@ class NBPRateService:
             try:
                 with self.cache_path.open("r", encoding="utf-8") as fp:
                     self.memory = json.load(fp)
-                logger.debug("Loaded %d cached rates from %s", len(self.memory), self.cache_path)
+                logger.debug(
+                    "Loaded %d cached rates from %s", len(self.memory), self.cache_path
+                )
             except (json.JSONDecodeError, IOError) as e:
                 logger.warning("Failed to load cache from %s: %s", self.cache_path, e)
                 self.memory = {}
@@ -66,7 +67,9 @@ class NBPRateService:
             self.cache_path.parent.mkdir(parents=True, exist_ok=True)
             with self.cache_path.open("w", encoding="utf-8") as fp:
                 json.dump(self.memory, fp, indent=2, ensure_ascii=False)
-            logger.debug("Saved cache with %d rates to %s", len(self.memory), self.cache_path)
+            logger.debug(
+                "Saved cache with %d rates to %s", len(self.memory), self.cache_path
+            )
         except IOError as e:
             logger.error("Failed to save cache to %s: %s", self.cache_path, e)
 
@@ -104,22 +107,29 @@ class NBPRateService:
             ValueError: If no rate can be found after exhausting retries.
         """
         currency = self.resolve_currency(asset)
-        
+
         if currency == "PLN":
             return 1.0
 
         # Use T-1 (day before)
         lookup_date = transaction_date - timedelta(days=1)
         key = f"{currency}_{lookup_date.isoformat()}"
-        
+
         if key in self.memory:
-            logger.debug("Using cached rate for %s on %s: %.4f", currency, lookup_date, self.memory[key])
+            logger.debug(
+                "Using cached rate for %s on %s: %.4f",
+                currency,
+                lookup_date,
+                self.memory[key],
+            )
             return float(self.memory[key])
 
         rate = self._fetch_rate(currency, lookup_date)
         self.memory[key] = rate
         self._save_cache()
-        logger.debug("Fetched and cached rate for %s on %s: %.4f", currency, lookup_date, rate)
+        logger.debug(
+            "Fetched and cached rate for %s on %s: %.4f", currency, lookup_date, rate
+        )
         return rate
 
     def _fetch_rate(self, currency: str, lookup_date: date) -> float:
@@ -137,19 +147,19 @@ class NBPRateService:
             ValueError: If no rate found within MAX_RETRIES days.
         """
         current_date = lookup_date
-        
+
         for attempt in range(MAX_RETRIES):
             if current_date.year < 2002:
                 msg = f"No NBP rates available for {currency} before 2002"
                 logger.error(msg)
                 raise ValueError(msg)
-            
+
             # Build NBP API URL
             endpoint = (
                 f"{self.config.nbp_base_url}/{self.config.nbp_table}/"
                 f"{currency}/{current_date.isoformat()}/?format=json"
             )
-            
+
             try:
                 logger.debug("Fetching rate from NBP: %s", endpoint)
                 response = requests.get(
@@ -157,7 +167,7 @@ class NBPRateService:
                     headers={"Accept": "application/json"},
                     timeout=10,
                 )
-                
+
                 if response.status_code == 200:
                     data = response.json()
                     rate = float(data["rates"][0]["mid"])
@@ -168,7 +178,7 @@ class NBPRateService:
                         rate,
                     )
                     return rate
-                
+
                 if response.status_code == 404:
                     logger.debug(
                         "Rate not found for %s on %s, trying previous day",
@@ -177,7 +187,7 @@ class NBPRateService:
                     )
                     current_date -= timedelta(days=1)
                     continue
-                
+
                 # Retry on other errors
                 logger.warning(
                     "NBP API error: status %d for %s on %s",
@@ -186,12 +196,12 @@ class NBPRateService:
                     current_date,
                 )
                 response.raise_for_status()
-            
+
             except requests.RequestException as e:
                 logger.warning("Network error fetching NBP rate: %s", e)
                 current_date -= timedelta(days=1)
                 continue
-        
+
         msg = (
             f"Unable to find NBP rate for {currency} within {MAX_RETRIES} days "
             f"before {lookup_date}. Please check the transaction date or configure a manual rate."
@@ -209,4 +219,3 @@ class NBPRateService:
     def get_cache_stats(self) -> Dict[str, int]:
         """Get cache statistics."""
         return {"cached_rates": len(self.memory)}
-

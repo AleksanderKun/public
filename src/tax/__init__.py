@@ -16,11 +16,11 @@ Key features:
 Example:
     from src.tax import CryptoTaxCalculator, load_tax_config
     from pathlib import Path
-    
+
     config = load_tax_config("config/tax_config.yml")
     calculator = CryptoTaxCalculator(config)
     summary, ledger = calculator.compute_tax(Path("transactions.csv"))
-    
+
     calculator.export_ledger_csv(ledger, Path("ledger.csv"))
     calculator.export_summary_json(summary, Path("summary.json"))
 """
@@ -52,4 +52,3 @@ __all__ = [
     "OperationType",
     "ValidationError",
 ]
-

@@ -52,7 +52,7 @@ Polish PIT-38 TAX RULES (2026):
 
 2. TAX BASE CALCULATION:
    income = revenue - costs
-   
+
 3. COSTS:
    - Only fiat spent on cryptocurrency purchases
    - Includes transaction fees related to purchases
@@ -282,7 +282,7 @@ Supported formats: %y-%m-%d %H:%M:%S, %Y-%m-%d %H:%M:%S, %d-%m-%y %H:%M:%S
 
 ERROR: "Unable to find NBP rate for {currency}"
 ─────────────────────────────────────────────────
-Solution: 
+Solution:
 1. Check your internet connection
 2. The transaction date might be during NBP holidays
 3. Try using --verbose to see which dates were attempted

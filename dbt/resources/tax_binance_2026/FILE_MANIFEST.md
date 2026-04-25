@@ -9,8 +9,8 @@ Location: `dbt/resources/tax_binance_2026/`
 ## 📄 Core Application Files
 
 ### `main.py` (Entry Point)
-**Purpose:** Main entry point for the application  
-**Size:** ~50 lines  
+**Purpose:** Main entry point for the application
+**Size:** ~50 lines
 **Key Functions:**
 - `main_simple()` - Direct execution mode
 - Default behavior when run without arguments
@@ -25,8 +25,8 @@ python main.py process --help     # CLI mode
 ---
 
 ### `cli.py` (Command-Line Interface)
-**Purpose:** Click-based CLI framework  
-**Size:** ~350 lines  
+**Purpose:** Click-based CLI framework
+**Size:** ~350 lines
 **Key Components:**
 - `@click.group()` - Main CLI group
 - `process` command - Full pipeline
@@ -47,8 +47,8 @@ python cli.py clear-cache --cache-file cache.json
 ## 📊 Domain Model Files
 
 ### `models.py` (Data Models)
-**Purpose:** Core data structures and domain objects  
-**Size:** ~250 lines  
+**Purpose:** Core data structures and domain objects
+**Size:** ~250 lines
 **Key Classes:**
 - `OperationType` - Enum of transaction types
 - `TaxEventType` - Enum of tax classifications
@@ -70,8 +70,8 @@ python cli.py clear-cache --cache-file cache.json
 ## 🔄 Processing Pipeline Files
 
 ### `normalizer.py` (Data Normalization & Classification)
-**Purpose:** Validate, normalize, and classify transactions  
-**Size:** ~350 lines  
+**Purpose:** Validate, normalize, and classify transactions
+**Size:** ~350 lines
 **Key Classes:**
 - `OperationClassifier` - Maps operations to tax events
 - `DataNormalizer` - Validates and normalizes CSV rows
@@ -99,8 +99,8 @@ DataNormalizer.normalize_row(row: dict, row_index: int) -> Optional[NormalizedTr
 ---
 
 ### `nbp_provider.py` (Exchange Rate Provider)
-**Purpose:** Fetch and cache NBP exchange rates  
-**Size:** ~300 lines  
+**Purpose:** Fetch and cache NBP exchange rates
+**Size:** ~300 lines
 **Key Classes:**
 - `NBPRateProvider` - Main rate provider
 
@@ -134,8 +134,8 @@ get_rate_simple(currency: str, transaction_date: datetime) -> Decimal
 ---
 
 ### `processor.py` (Data Processing Pipeline)
-**Purpose:** Orchestrates full processing workflow  
-**Size:** ~350 lines  
+**Purpose:** Orchestrates full processing workflow
+**Size:** ~350 lines
 **Key Classes:**
 - `DataProcessor` - Main pipeline orchestrator
 
@@ -163,8 +163,8 @@ process(csv_path: Path) -> TaxReport  # Full pipeline
 ---
 
 ### `tax_engine.py` (Tax Calculation Engine)
-**Purpose:** Core tax calculation logic  
-**Size:** ~400 lines  
+**Purpose:** Core tax calculation logic
+**Size:** ~400 lines
 **Key Classes:**
 - `CostPool` - Global cost accumulation
 - `TaxCalculationEngine` - Main calculation engine
@@ -197,8 +197,8 @@ TaxCalculator.calculate_tax(transactions: list) -> TaxReport
 ---
 
 ### `reporter.py` (Report Generation)
-**Purpose:** Generate tax reports in multiple formats  
-**Size:** ~450 lines  
+**Purpose:** Generate tax reports in multiple formats
+**Size:** ~450 lines
 **Key Classes:**
 - `ReportGenerator` - Multi-format reporter
 
@@ -247,9 +247,9 @@ print_summary(report: TaxReport)
 ## 🧪 Testing Files
 
 ### `tests.py` (Unit Tests)
-**Purpose:** Comprehensive unit test suite  
-**Size:** ~600 lines  
-**Test Count:** 34 tests  
+**Purpose:** Comprehensive unit test suite
+**Size:** ~600 lines
+**Test Count:** 34 tests
 **Pass Rate:** 100%
 
 **Test Classes:**
@@ -284,8 +284,8 @@ python -m unittest tests.TestCostPool -v
 ## 📚 Documentation Files
 
 ### `README.md` (Technical Reference)
-**Purpose:** Complete technical documentation  
-**Size:** ~700 lines  
+**Purpose:** Complete technical documentation
+**Size:** ~700 lines
 **Sections:**
 - Project overview
 - Legal framework explanation
@@ -304,8 +304,8 @@ python -m unittest tests.TestCostPool -v
 ---
 
 ### `QUICKSTART.md` (User Guide)
-**Purpose:** Quick start and usage guide  
-**Size:** ~400 lines  
+**Purpose:** Quick start and usage guide
+**Size:** ~400 lines
 **Sections:**
 - 5-minute setup
 - Common workflows
@@ -321,8 +321,8 @@ python -m unittest tests.TestCostPool -v
 ---
 
 ### `POLISH_TAX_LAW_GUIDE.md` (Legal Reference)
-**Purpose:** Detailed legal framework explanation  
-**Size:** ~800 lines  
+**Purpose:** Detailed legal framework explanation
+**Size:** ~800 lines
 **Sections:**
 - Taxable event definition
 - Tax base calculation (global pooling)
@@ -340,8 +340,8 @@ python -m unittest tests.TestCostPool -v
 ---
 
 ### `DEVELOPER_GUIDE.md` (Development Reference)
-**Purpose:** Guide for developers extending the module  
-**Size:** ~500 lines  
+**Purpose:** Guide for developers extending the module
+**Size:** ~500 lines
 **Sections:**
 - Architecture overview
 - Module dependencies
@@ -359,8 +359,8 @@ python -m unittest tests.TestCostPool -v
 ---
 
 ### `DELIVERY_SUMMARY.md` (Project Overview)
-**Purpose:** Complete project delivery summary  
-**Size:** ~400 lines  
+**Purpose:** Complete project delivery summary
+**Size:** ~400 lines
 **Sections:**
 - What was delivered
 - Project structure
@@ -380,7 +380,7 @@ python -m unittest tests.TestCostPool -v
 ## ⚙️ Configuration Files
 
 ### `requirements.txt` (Python Dependencies)
-**Purpose:** Python package dependencies  
+**Purpose:** Python package dependencies
 **Content:**
 ```
 polars==0.20.0              # DataFrame processing
@@ -402,8 +402,8 @@ pip install -r requirements.txt
 ---
 
 ### `tax_config.yml` (Configuration File)
-**Purpose:** Tax calculation configuration  
-**Location:** `config/tax_config.yml`  
+**Purpose:** Tax calculation configuration
+**Location:** `config/tax_config.yml`
 **Key Settings:**
 ```yaml
 tax_year: 2026
@@ -518,10 +518,10 @@ Output:
 
 ## ✅ Version Information
 
-**Current Version:** 1.0.0  
-**Release Date:** 2026-01-01  
-**Python Version:** 3.11+  
-**Status:** Production Ready  
+**Current Version:** 1.0.0
+**Release Date:** 2026-01-01
+**Python Version:** 3.11+
+**Status:** Production Ready
 
 ---
 
@@ -568,6 +568,5 @@ dbt/resources/tax_binance_2026/
 
 ---
 
-**Last Updated:** 2026-01-01  
+**Last Updated:** 2026-01-01
 **Manifest Version:** 1.0
-

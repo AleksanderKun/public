@@ -400,19 +400,19 @@ Advantage: Unlike US law, no "30-day rule"
 
 #### **What This Module Validates**
 
-✅ Missing or invalid transaction dates  
-✅ Non-numeric amounts  
-✅ Unknown operation types  
-✅ Missing NBP exchange rates  
-✅ Invalid currency codes  
-✅ Zero amounts  
+✅ Missing or invalid transaction dates
+✅ Non-numeric amounts
+✅ Unknown operation types
+✅ Missing NBP exchange rates
+✅ Invalid currency codes
+✅ Zero amounts
 ✅ Duplicate entries (warns but processes)
 
 #### **What This Module Does NOT Validate**
 
-❌ Completeness of data (missing transactions)  
-❌ Accuracy of amounts (trust user input)  
-❌ Legitimacy of transactions (is it really yours?)  
+❌ Completeness of data (missing transactions)
+❌ Accuracy of amounts (trust user input)
+❌ Legitimacy of transactions (is it really yours?)
 ❌ Compliance with other tax rules (VAT, corporate tax, etc.)
 
 ---
@@ -540,7 +540,6 @@ Report to submit on PIT-38:
 
 ---
 
-**Document Version**: 1.0  
-**Updated**: 2026-01-01  
+**Document Version**: 1.0
+**Updated**: 2026-01-01
 **Applicable to**: Polish Tax Year 2026+
-

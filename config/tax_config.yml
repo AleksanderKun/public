@@ -1,5 +1,5 @@
 # Configuration for Cryptocurrency Tax Calculation Engine - Polish Tax Law (PIT-38)
-# 
+#
 # This file controls the behavior of the tax calculation module.
 # Edit values according to your needs and Polish tax requirements.
 
@@ -75,4 +75,3 @@ validation:
 logging:
   level: INFO            # DEBUG, INFO, WARNING, ERROR, CRITICAL
   format: detailed       # simple, detailed, json
-

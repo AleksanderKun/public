@@ -344,22 +344,22 @@ config-template          # Configuration help
 
 ## ❓ FAQ
 
-**Q: Is this legal advice?**  
+**Q: Is this legal advice?**
 A: No. Consult a tax professional. This is a calculation tool.
 
-**Q: What if I have losses?**  
+**Q: What if I have losses?**
 A: Losses carry forward automatically to next year in calculations.
 
-**Q: What about staking rewards?**  
+**Q: What about staking rewards?**
 A: Configurable. Default: ignored (conservative). Can be changed.
 
-**Q: Does this work for other exchanges?**  
+**Q: Does this work for other exchanges?**
 A: Only Binance format currently. Other formats would need conversion.
 
-**Q: Can I process multiple years?**  
+**Q: Can I process multiple years?**
 A: Yes. Process each year's CSV separately, losses carry forward.
 
-**Q: What about fees?**  
+**Q: What about fees?**
 A: Fees are automatically included in cost basis calculations.
 
 ---
@@ -410,20 +410,20 @@ A: Fees are automatically included in cost basis calculations.
 
 ## ⚠️ Important Reminders
 
-⚠️ **Not legal advice** - Consult a tax professional  
-⚠️ **Verify calculations** - Review all reports  
-⚠️ **Law may change** - Check current regulations  
-⚠️ **Conservative defaults** - May underestimate liability  
-⚠️ **Complete data needed** - Include all transactions  
+⚠️ **Not legal advice** - Consult a tax professional
+⚠️ **Verify calculations** - Review all reports
+⚠️ **Law may change** - Check current regulations
+⚠️ **Conservative defaults** - May underestimate liability
+⚠️ **Complete data needed** - Include all transactions
 
 ---
 
 ## 📅 Version Information
 
-**Current Version:** 1.0.0  
-**Release Date:** 2026-01-01  
-**Status:** ✅ Production Ready  
-**Python:** 3.11+  
+**Current Version:** 1.0.0
+**Release Date:** 2026-01-01
+**Status:** ✅ Production Ready
+**Python:** 3.11+
 
 ---
 
@@ -431,21 +431,21 @@ A: Fees are automatically included in cost basis calculations.
 
 This is a **professional, production-grade cryptocurrency tax calculation engine** that:
 
-✅ Properly implements Polish tax law (PIT-38)  
-✅ Handles complex multi-year calculations  
-✅ Integrates with real NBP exchange rates  
-✅ Provides multiple output formats  
-✅ Includes comprehensive testing (34 passing tests)  
-✅ Features professional CLI interface  
-✅ Supports configuration management  
-✅ Is fully documented (3,700+ lines)  
-✅ Ready for immediate deployment  
+✅ Properly implements Polish tax law (PIT-38)
+✅ Handles complex multi-year calculations
+✅ Integrates with real NBP exchange rates
+✅ Provides multiple output formats
+✅ Includes comprehensive testing (34 passing tests)
+✅ Features professional CLI interface
+✅ Supports configuration management
+✅ Is fully documented (3,700+ lines)
+✅ Ready for immediate deployment
 
 **All components complete, tested, and documented.**
 
 ---
 
-**Last Updated:** 2026-01-01  
+**Last Updated:** 2026-01-01
 **Index Version:** 1.0
 
 *For detailed information, see the specific documentation files referenced above.*

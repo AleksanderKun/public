@@ -370,7 +370,7 @@ Losses can be carried to future years:
 
 ```python
 year_2024 = TaxYear(2024, revenue=1000, costs=2000)  # Loss: 1000
-year_2025 = TaxYear(2025, revenue=3000, costs=1000, 
+year_2025 = TaxYear(2025, revenue=3000, costs=1000,
                     loss_from_previous_years=1000)  # Taxable: 1000
 ```
 
@@ -472,7 +472,7 @@ For issues or questions:
 
 ---
 
-**Last Updated**: 2026-01-01  
-**Version**: 1.0.0  
-**Python**: 3.11+  
+**Last Updated**: 2026-01-01
+**Version**: 1.0.0
+**Python**: 3.11+
 **License**: As per project requirements

@@ -10,12 +10,14 @@ import random
 from datetime import datetime, timedelta
 import os
 
+
 def run_git_command(command: str):
     """Run a git command."""
     result = subprocess.run(command.split(), capture_output=True, text=True)
     if result.returncode != 0:
         print(f"Error: {result.stderr}")
     return result.returncode == 0
+
 
 def create_fake_commits(num_commits: int = 50, days_back: int = 365):
     """
@@ -43,6 +45,7 @@ def create_fake_commits(num_commits: int = 50, days_back: int = 365):
         subprocess.run(["git", "commit", "-m", f"Fake commit {i+1}"], env=env)
 
     print(f"Created {num_commits} fake commits.")
+
 
 if __name__ == "__main__":
     # Example: 100 commits over last 365 days

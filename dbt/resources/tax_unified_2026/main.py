@@ -4,19 +4,27 @@ import sys
 import zipfile
 from pathlib import Path
 
-CURRENT_DIR = Path(__file__).resolve().parent
-DBT_ROOT = CURRENT_DIR.parent.parent
-REPO_ROOT = CURRENT_DIR.parents[2]
-sys.path.insert(0, str(REPO_ROOT))
+import polars as pl
 
 from src.tax.config import load_tax_config
 from src.tax.processor import CryptoTaxCalculator
+
+CURRENT_DIR = Path(__file__).resolve().parent
+DBT_ROOT = CURRENT_DIR.parent.parent
+REPO_ROOT = CURRENT_DIR.parents[2]
+
+sys.path.insert(0, str(REPO_ROOT))
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 CONFIG_PATH = REPO_ROOT / "config" / "tax_config.yml"
 BINANCE_CSV = DBT_ROOT / "seeds" / "Binance_2026_KG" / "Binance_sample_UTC+2_KG.csv"
-BYBIT_CSV = DBT_ROOT / "seeds" / "Bybit_2026_AK" / "AssetChangeDetails_uta_375404132_20250101_20251231_0.csv"
+BYBIT_CSV = (
+    DBT_ROOT
+    / "seeds"
+    / "Bybit_2026_AK"
+    / "AssetChangeDetails_uta_375404132_20250101_20251231_0.csv"
+)
 OUTPUT_DIR = CURRENT_DIR
 
 
@@ -29,7 +37,6 @@ def save_json(data: dict, path: Path) -> None:
 def write_summary_csv(rows: list[dict], path: Path) -> None:
     if not rows:
         return
-    import polars as pl
 
     path.parent.mkdir(parents=True, exist_ok=True)
     pl.DataFrame(rows).write_csv(path)
@@ -91,16 +98,16 @@ class UnifiedTaxResource:
 
         summary_rows = [
             {
-                "source": result["source"],
-                "tax_year": result["tax_year"],
-                "processed": result["transactions_processed"],
-                "ignored": result["transactions_ignored"],
-                "cost_pln": result["total_cost_pln"],
-                "revenue_pln": result["total_revenue_pln"],
-                "income_pln": result["income_pln"],
-                "loss_to_carry_pln": result["loss_to_carry_pln"],
+                "source": r["source"],
+                "tax_year": r["tax_year"],
+                "processed": r["transactions_processed"],
+                "ignored": r["transactions_ignored"],
+                "cost_pln": r["total_cost_pln"],
+                "revenue_pln": r["total_revenue_pln"],
+                "income_pln": r["income_pln"],
+                "loss_to_carry_pln": r["loss_to_carry_pln"],
             }
-            for result in results
+            for r in results
         ]
 
         summary_csv = OUTPUT_DIR / "tax_unified_summary.csv"
@@ -129,5 +136,4 @@ class UnifiedTaxResource:
 
 if __name__ == "__main__":
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    runner = UnifiedTaxResource(CONFIG_PATH)
-    runner.run()
+    UnifiedTaxResource(CONFIG_PATH).run()

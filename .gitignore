@@ -1,58 +1,28 @@
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+*.pyc
+.venv/
 
-# Virtual environments
-.venv
-venv/
-ENV/
-env/
-
-# Data
-data/raw/
-data/processed/
-!data/external/
-
-# dbt
+# DBT
 dbt/target/
 dbt/logs/
-*.db
+dbt_packages/
 
-# Models
-models/
-artifacts/
+# DB
+*.duckdb
+*.db
 
 # IDE
 .vscode/
 .idea/
 
+# Logs
+*.log
+
 # OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-
-# Environment
-.env
-.env.local
-portfolio/Datacamp_Data_Analyst_with_Python
+# Data
+data/raw/
+data/processed/

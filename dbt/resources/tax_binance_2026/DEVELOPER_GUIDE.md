@@ -195,12 +195,12 @@ class OperationType(str, Enum):
 ```python
 class OperationClassifier:
     # Add to appropriate category:
-    
+
     COST_INCREASING_OPS = {
         # ... existing ...
         OperationType.MARGIN_INTEREST,  # Interest increases cost
     }
-    
+
     def classify(self, operation_name: str) -> OperationType:
         # Add fuzzy matching
         if "MARGIN" in op_upper and "INTEREST" in op_upper:
@@ -233,14 +233,14 @@ def test_classify_margin_interest(self):
 def generate_xml(self, report: TaxReport, prefix: str = "tax_report") -> Path:
     """Generate XML export."""
     filename = self.output_dir / f"{prefix}.xml"
-    
+
     # Build XML structure
     # ...
-    
+
     with open(filename, 'w', encoding='utf-8') as f:
         # Write XML
         pass
-    
+
     return filename
 ```
 
@@ -261,12 +261,12 @@ def generate_all(self, report: TaxReport, prefix: str = "tax_report"):
 ```python
 class ECBRateProvider:
     """European Central Bank exchange rate provider."""
-    
+
     def __init__(self, cache_path: Optional[Path] = None):
         self.cache_path = cache_path
         self.base_url = "https://www.ecb.europa.eu/..."
         # ...
-    
+
     def get_rate(self, currency: str, date: datetime):
         # Implement ECB API integration
         pass
@@ -290,15 +290,15 @@ class TestComponentName(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         # Initialize test objects
-    
+
     def test_happy_path(self):
         """Test normal operation."""
         # Assert expected behavior
-    
+
     def test_edge_case(self):
         """Test edge case."""
         # Assert graceful handling
-    
+
     def test_error_case(self):
         """Test error handling."""
         # Assert error raised appropriately
@@ -312,7 +312,7 @@ class TestComponentName(unittest.TestCase):
 class TestNewFeature(unittest.TestCase):
     def setUp(self):
         self.component = NewComponent()
-    
+
     def test_basic_functionality(self):
         result = self.component.method()
         self.assertEqual(result, expected_value)
@@ -486,16 +486,16 @@ def get_rate(self, currency, date):
 def process_year(self, year: int) -> TaxYear:
     """
     Calculate tax for a single year.
-    
+
     Per Polish tax law, uses global cost pooling (not FIFO).
     Losses carry forward to subsequent years.
-    
+
     Args:
         year: Tax year to process
-        
+
     Returns:
         TaxYear object with calculations
-        
+
     Raises:
         ValueError: If year is invalid
     """
@@ -562,13 +562,13 @@ except:
 
 **Common questions:**
 
-1. Q: What if a transaction is missing?  
+1. Q: What if a transaction is missing?
    A: Re-export from Binance with correct date range
 
-2. Q: Can I use data from multiple exchanges?  
+2. Q: Can I use data from multiple exchanges?
    A: Only if converted to Binance CSV format
 
-3. Q: What about leverage trading?  
+3. Q: What about leverage trading?
    A: Currently not supported (complex rules)
 
 ---
@@ -658,5 +658,5 @@ For bug reports:
 
 ---
 
-**Last Updated:** 2026-01-01  
+**Last Updated:** 2026-01-01
 **Version:** 1.0.0

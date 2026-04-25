@@ -3,48 +3,39 @@ repos:
     rev: v4.6.0
     hooks:
       - id: check-yaml
-        # Validate YAML files to avoid syntax issues in dbt configs.
       - id: end-of-file-fixer
-        # Ensure files finish with a single newline.
       - id: trailing-whitespace
-        # Remove accidental trailing whitespace from text files.
 
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black
-        name: black (python formatter)
         language_version: python3.11
-        types: [python]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.0
     hooks:
       - id: ruff
-        name: ruff (python linter)
-        entry: ruff check
-        language_version: python3.11
+        entry: ruff check --fix
         types: [python]
 
   - repo: https://github.com/sqlfluff/sqlfluff
-    rev: 1.0.0
+    rev: 3.0.7
     hooks:
-      - id: sqlfluff
-        name: sqlfluff lint
-        args:
-          - lint
-          - --nocolor
-        files: \.sql$
+      - id: sqlfluff-lint
+        additional_dependencies:
+          - dbt-core
+          - dbt-duckdb
+          - sqlfluff-templater-dbt
+        env:
+          DBT_PROFILES_DIR: dbt
 
   - repo: local
     hooks:
       - id: dbt-parse
         name: dbt parse
         entry: dbt parse --project-dir dbt --profiles-dir dbt
-        language: python
-        additional_dependencies:
-          - dbt-core==1.7.0
-          - dbt-sqlite==1.7.0
-        files: ^dbt/.*\.(sql|yml|yaml)$
+        language: system
         pass_filenames: false
-        verbose: true
+        env:
+          DBT_PROFILES_DIR: dbt

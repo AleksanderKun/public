@@ -72,12 +72,12 @@ KEY DESIGN DECISIONS
 1. OPERATION CLASSIFICATION
    ──────────────────────────
    Decision: Enum-based classification with context-aware fee handling
-   
+
    Rationale:
    - Enums provide type safety and IDE support
    - Context (related operations) allows smart fee classification
    - Extensible for future operation types
-   
+
    Implementation:
    - OperationClassification enum in types.py
    - classify_operation() method supports optional context parameter
@@ -87,13 +87,13 @@ KEY DESIGN DECISIONS
 2. POOLED COST BASIS
    ─────────────────
    Decision: Global cost pool (not FIFO, not LIFO)
-   
+
    Rationale:
    - Polish tax law does NOT require FIFO
    - Simpler to implement and understand
    - More tax-favorable than alternatives
    - No need to track individual coin purchases
-   
+
    Implementation:
    - Single total_cost_pln accumulator
    - All costs added to same pool
@@ -103,13 +103,13 @@ KEY DESIGN DECISIONS
 3. NBP RATE CACHING
    ────────────────
    Decision: JSON file-based cache with memory layer
-   
+
    Rationale:
    - Avoids redundant API calls
    - Faster calculations on subsequent runs
    - Persists across sessions
    - Simple format (human-readable)
-   
+
    Implementation:
    - In-memory dict (self.memory)
    - File cache on disk (nbp_rate_cache.json)
@@ -120,12 +120,12 @@ KEY DESIGN DECISIONS
 4. T-1 EXCHANGE RATES
    ──────────────────
    Decision: Use rate from day before transaction (T-1)
-   
+
    Rationale:
    - Required by Polish tax law
    - More stable than intraday rates
    - Matches official reporting
-   
+
    Implementation:
    - subtract timedelta(days=1) from transaction date
    - Backfill up to 14 days if T-1 not available
@@ -135,14 +135,14 @@ KEY DESIGN DECISIONS
 5. STABLECOIN MAPPING
    ──────────────────
    Decision: Map stablecoins to underlying currency, then convert
-   
+
    Example: USDT → USD → PLN (using USD exchange rate)
-   
+
    Rationale:
    - Stablecoins maintain 1:1 peg to underlying
    - Simplifies rate resolution
    - Configurable in config file
-   
+
    Implementation:
    - stablecoin_map dict in config
    - resolve_currency() method applies mapping
@@ -152,12 +152,12 @@ KEY DESIGN DECISIONS
 6. ERROR HANDLING STRATEGY
    ───────────────────────
    Decision: Log warnings, continue processing, collect errors
-   
+
    Rationale:
    - Partial data better than failure
    - User sees what worked and what didn't
    - Validation layer catches critical issues
-   
+
    Implementation:
    - Try-except blocks around risky operations
    - Logging at DEBUG, INFO, WARNING, ERROR levels
@@ -332,20 +332,20 @@ Test Categories:
    - Operation classification (all types)
    - Currency resolution (stablecoins)
    - Type conversions and validation
-   
+
 2. INTEGRATION TESTS
    ──────────────────
    - Full workflow (CSV → ledger → JSON)
    - Multiple transactions in sequence
    - Real exchange rate scenarios
-   
+
 3. EDGE CASE TESTS
    ────────────────
    - Loss carryforward
    - Fee classification
    - Stablecoin handling
    - Missing rates (graceful fallback)
-   
+
 4. VALIDATION TESTS
    ──────────────────
    - Missing required columns
@@ -385,11 +385,11 @@ Optimization Strategies:
    - Chosen over pandas for memory efficiency
    - ~2-3x faster for large datasets
    - Lazy evaluation where possible
-   
+
 3. GROUPING OPTIMIZATION
    - Single pass through data for grouping
    - Dict lookup O(1) for context-aware classification
-   
+
 4. LAZY RATE FETCHING
    - Only fetch rates for non-PLN assets
    - Batch similar operations where possible
@@ -426,12 +426,12 @@ Adding Custom Rate Sources:
 1. Subclass NBPRateService
 2. Override _fetch_rate() method
 3. Pass to CryptoTaxCalculator constructor:
-   
+
    class CustomRateService(NBPRateService):
        def _fetch_rate(self, currency, lookup_date):
            # Custom logic here
            return rate
-   
+
    calculator = CryptoTaxCalculator(config, rate_service=CustomRateService(config))
 
 
@@ -453,13 +453,13 @@ CURRENT LIMITATIONS:
    - Futures / derivatives
    - Business income classification
    - Quarterly advance tax payments
-   
+
 2. Assumes:
    - All transactions are personal investment
    - Exchange rates are accurate
    - CSV format is correct
    - User is Polish tax resident
-   
+
 3. Performance:
    - Not optimized for 100,000+ transactions
    - Network delay for uncached rate lookups
@@ -472,12 +472,12 @@ POTENTIAL IMPROVEMENTS:
    - Manual rate override for missing dates
    - Multi-wallet/exchange aggregation
    - DeFi position tracking
-   
+
 2. Performance:
    - Parallel rate fetching for uncached dates
    - Batch NBP API requests
    - Async I/O for file operations
-   
+
 3. Integration:
    - Import from exchange APIs (Binance API instead of CSV)
    - Export to tax software formats

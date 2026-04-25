@@ -8,6 +8,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent
 DBT_DIR = PROJECT_ROOT / "dbt"
 
+
 def run_dbt_command(command: str):
     """Run a dbt command."""
     cmd = ["dbt"] + command.split()
@@ -17,8 +18,9 @@ def run_dbt_command(command: str):
         print(result.stderr, file=sys.stderr)
     return result.returncode
 
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python run_dbt.py <command>")
         sys.exit(1)
-    sys.exit(run_dbt_command(" ".join(sys.argv[1:]))) 
+    sys.exit(run_dbt_command(" ".join(sys.argv[1:])))

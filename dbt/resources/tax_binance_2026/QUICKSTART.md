@@ -247,7 +247,7 @@ nbp = NBPRateProvider(cache_path="nbp_cache.json")
 WARNING: No exchange rate found for USD within 10 days before 2026-01-15
 ```
 
-**Solution**: 
+**Solution**:
 - Check date is within NBP's available data
 - Try clearing cache: `python cli.py clear-cache`
 - Manually add rate to `nbp_cache.json`
@@ -356,7 +356,7 @@ csv_files = Path(".").glob("binance_*.csv")
 for csv_file in csv_files:
     processor = DataProcessor()
     report = processor.process(csv_file)
-    
+
     reporter = ReportGenerator(output_dir=f"reports/{csv_file.stem}")
     reporter.generate_all(report)
 ```
@@ -397,19 +397,19 @@ processor = DataProcessor()
 
 ### Common Questions
 
-**Q: Can I process multiple exchanges together?**  
+**Q: Can I process multiple exchanges together?**
 A: Exports need to be in Binance format. If using other exchanges, convert first.
 
-**Q: What if I have transactions from 2023 and earlier?**  
+**Q: What if I have transactions from 2023 and earlier?**
 A: Set `tax_year` in config and process separately. Carry losses forward manually.
 
-**Q: Is staking income taxable?**  
+**Q: Is staking income taxable?**
 A: Configurable. Conservative (default): No. Progressive: Yes. Check with advisor.
 
-**Q: What about fees paid in different coins?**  
+**Q: What about fees paid in different coins?**
 A: Automatically converted to PLN using T-1 rates.
 
-**Q: Can I lose money and offset future income?**  
+**Q: Can I lose money and offset future income?**
 A: Yes - losses carry forward automatically across years.
 
 ---
@@ -430,4 +430,3 @@ A: Yes - losses carry forward automatically across years.
 - Polish tax law guide in POLISH_TAX_LAW_GUIDE.md
 - Code comments in source files
 - Unit tests in tests.py for API examples
-

@@ -54,7 +54,7 @@ def load_tax_config(path: Path | str = "config/tax_config.yml") -> TaxConfig:
         ValueError: If critical configuration is invalid.
     """
     config_path = Path(path)
-    
+
     if config_path.exists():
         logger.info("Loading configuration from %s", config_path)
         with config_path.open("r", encoding="utf-8") as f:
@@ -65,11 +65,11 @@ def load_tax_config(path: Path | str = "config/tax_config.yml") -> TaxConfig:
 
     # Merge with defaults, file values override defaults
     merged = {**DEFAULT_CONFIG, **raw}
-    
+
     # Validate required fields
     if not merged.get("fiat_currencies"):
         raise ValueError("fiat_currencies must be configured")
-    
+
     if not merged.get("nbp_base_url"):
         raise ValueError("nbp_base_url must be configured")
 
@@ -90,9 +90,10 @@ def load_tax_config(path: Path | str = "config/tax_config.yml") -> TaxConfig:
         nbp_base_url=str(merged["nbp_base_url"]).strip(),
         nbp_cache_path=cache_path,
         ignore_operations=[str(x).strip() for x in merged.get("ignore_operations", [])],
-        optional_operations=[str(x).strip() for x in merged.get("optional_operations", [])],
+        optional_operations=[
+            str(x).strip() for x in merged.get("optional_operations", [])
+        ],
     )
-    
+
     logger.debug("Configuration loaded successfully")
     return config
-

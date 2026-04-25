@@ -16,6 +16,7 @@ from .config import load_tax_config
 from .processor import CryptoTaxCalculator
 from .validation import TransactionValidator
 
+
 # Configure logging
 def configure_logging(level: int = logging.INFO) -> None:
     """Configure logging for CLI."""
@@ -97,7 +98,8 @@ See README.md for detailed documentation.
     )
 
     parser.add_argument(
-        "-v", "--verbose",
+        "-v",
+        "--verbose",
         action="store_true",
         help="Enable verbose debug logging",
     )
@@ -149,7 +151,9 @@ def main() -> int:
             validator.print_report()
 
             if not results["is_valid"]:
-                logger.error("Validation failed with %d error(s)", results["error_count"])
+                logger.error(
+                    "Validation failed with %d error(s)", results["error_count"]
+                )
                 return 1
 
             logger.info("Validation passed!")
@@ -209,4 +213,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

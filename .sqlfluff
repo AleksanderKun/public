@@ -1,10 +1,10 @@
 [sqlfluff]
-dialect = sqlite
+dialect = duckdb
 templater = dbt
-exclude = target/*, dbt_packages/*
-
-[sqlfluff:rules]
 max_line_length = 120
 
+exclude = target/*,dbt_packages/*
+
 [sqlfluff:templater:dbt]
-profile_target = default
+profile_dir = dbt
+project_dir = dbt

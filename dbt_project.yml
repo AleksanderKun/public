@@ -1,14 +1,21 @@
-name: "tax_project"
+name: public
 version: "1.0.0"
+config-version: 2
 
-profile: "default"
+profile: default
 
 model-paths: ["models"]
-macro-paths: ["macros"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
 seed-paths: ["seeds"]
+macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
 target-path: "target"
 clean-targets:
   - "target"
   - "dbt_packages"
+
+vars: {}
+
+models: {}

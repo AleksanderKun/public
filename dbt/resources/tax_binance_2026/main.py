@@ -31,7 +31,7 @@ from cli import cli
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 def main_simple(csv_path: str, output_dir: str = ".", cache_file: str = None):
     """
     Simple entry point for direct script execution.
-    
+
     Args:
         csv_path: Path to Binance CSV export
         output_dir: Output directory for reports
@@ -48,40 +48,40 @@ def main_simple(csv_path: str, output_dir: str = ".", cache_file: str = None):
     try:
         csv_path = Path(csv_path)
         output_dir = Path(output_dir)
-        
+
         # Setup providers
         cache_path = Path(cache_file) if cache_file else output_dir / "nbp_cache.json"
         nbp_provider = NBPRateProvider(cache_path=cache_path)
         classifier = OperationClassifier(treat_airdrops_as_income=False)
-        
+
         # Create processor
         processor = DataProcessor(
             nbp_provider=nbp_provider,
             classifier=classifier,
             treat_airdrops_as_income=False,
         )
-        
+
         # Process
         logger.info(f"Processing {csv_path}...")
         report = processor.process(csv_path)
-        
+
         # Generate reports
         logger.info(f"Generating reports to {output_dir}...")
         output_dir.mkdir(parents=True, exist_ok=True)
         reporter = ReportGenerator(output_dir=output_dir)
         reporter.generate_all(report)
         reporter.print_summary(report)
-        
+
         # Show errors
         errors = processor.get_validation_errors()
         if errors:
             logger.warning(f"{len(errors)} validation errors encountered")
             for error in errors[:5]:
                 logger.warning(f"  Row {error.row_index}: {error.error_type}")
-        
+
         logger.info("✅ Processing complete!")
         return 0
-        
+
     except Exception as e:
         logger.error(f"❌ Error: {e}")
         logger.exception("Full traceback:")
@@ -97,10 +97,12 @@ if __name__ == "__main__":
         # Adjust these paths as needed:
         CURRENT_DIR = Path(__file__).resolve().parent
         DBT_ROOT = CURRENT_DIR.parent.parent
-        
-        CSV_PATH = DBT_ROOT / "seeds" / "Binance_2026_KG" / "Binance_sample_UTC+2_KG.csv"
+
+        CSV_PATH = (
+            DBT_ROOT / "seeds" / "Binance_2026_KG" / "Binance_sample_UTC+2_KG.csv"
+        )
         OUTPUT_DIR = CURRENT_DIR
-        
+
         if CSV_PATH.exists():
             exit_code = main_simple(
                 str(CSV_PATH),

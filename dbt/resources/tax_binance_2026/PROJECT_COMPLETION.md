@@ -2,8 +2,8 @@
 
 ## Cryptocurrency Tax Calculation Engine - Polish Tax Law (PIT-38)
 
-**Date Completed:** January 1, 2026  
-**Status:** ✅ **COMPLETE & PRODUCTION READY**  
+**Date Completed:** January 1, 2026
+**Status:** ✅ **COMPLETE & PRODUCTION READY**
 **Quality:** 34/34 Tests Passing | 100% Compile Success
 
 ---
@@ -239,23 +239,23 @@ python main.py --help            # Show CLI help
 ## 💡 KEY DESIGN DECISIONS
 
 ### 1. Global Cost Pooling
-**Decision:** Use global pooling, NOT FIFO  
+**Decision:** Use global pooling, NOT FIFO
 **Rationale:** Per Polish law, costs are pooled globally. Simpler calculation.
 
 ### 2. T-1 Exchange Rates
-**Decision:** Use NBP rate from day before transaction  
+**Decision:** Use NBP rate from day before transaction
 **Rationale:** Required by Polish tax authority for standardization.
 
 ### 3. Decimal Over Float
-**Decision:** Use Python's Decimal type  
+**Decision:** Use Python's Decimal type
 **Rationale:** Financial calculations require precision, avoid floating-point errors.
 
 ### 4. Modular Architecture
-**Decision:** 8 independent modules with clean separation  
+**Decision:** 8 independent modules with clean separation
 **Rationale:** Easier testing, maintenance, and future enhancements.
 
 ### 5. Conservative Defaults
-**Decision:** Airdrops and staking ignored by default (configurable)  
+**Decision:** Airdrops and staking ignored by default (configurable)
 **Rationale:** Conservative interpretation reduces audit risk.
 
 ---
@@ -496,23 +496,23 @@ python main.py --help            # Show CLI help
 
 This is a **complete, professional-grade cryptocurrency tax calculation engine** that:
 
-✅ **Properly implements** Polish tax law (PIT-38)  
-✅ **Handles** complex multi-year calculations  
-✅ **Integrates** with real NBP exchange rates  
-✅ **Provides** multiple output formats  
-✅ **Includes** comprehensive testing (34 passing tests)  
-✅ **Features** professional CLI interface  
-✅ **Supports** configuration management  
-✅ **Is** fully documented (3,700+ lines)  
-✅ **Ready for** immediate deployment  
+✅ **Properly implements** Polish tax law (PIT-38)
+✅ **Handles** complex multi-year calculations
+✅ **Integrates** with real NBP exchange rates
+✅ **Provides** multiple output formats
+✅ **Includes** comprehensive testing (34 passing tests)
+✅ **Features** professional CLI interface
+✅ **Supports** configuration management
+✅ **Is** fully documented (3,700+ lines)
+✅ **Ready for** immediate deployment
 
 **The module is complete, tested, documented, and production-ready.**
 
 ---
 
-**Project Completed:** January 1, 2026  
-**Version:** 1.0.0  
-**Status:** ✅ Production Ready  
+**Project Completed:** January 1, 2026
+**Version:** 1.0.0
+**Status:** ✅ Production Ready
 **Quality:** 100% (All tests pass, all modules compile, fully documented)
 
 ---
@@ -522,4 +522,3 @@ This is a **complete, professional-grade cryptocurrency tax calculation engine**
 Refer to the comprehensive documentation included in the project. All files are well-commented and documented for immediate understanding and use.
 
 **Thank you for using this tax calculation engine!**
-

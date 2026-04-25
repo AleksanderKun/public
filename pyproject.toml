@@ -1,33 +1,19 @@
 [tool.poetry]
 name = "data-project"
 version = "0.1.0"
-description = "Production-grade data analytics project"
-authors = ["Aleksander Kun <alek.kunysz@gmail.com>"]
-packages = [
-  { include = "tax", from = "src" },
-  { include = "config", from = "src" }
-]
+description = ""
+authors = ["you"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
+dbt-core = "^1.9.0"
+dbt-duckdb = "^1.9.0"
 polars = "^0.20.0"
-pandas = "^2.0.0"
-requests = "^2.31.0"
-PyYAML = "^6.0"
-scikit-learn = "^1.3.0"
-xgboost = "^2.0.0"
-lightgbm = "^4.0.0"
-torch = "^2.0.0"
-prefect = "^2.0.0"
-dbt-core = "^1.7.0"
-dbt-sqlite = "^1.7.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.0.0"
+black = "^23.12.0"
 ruff = "^0.1.0"
-black = "^23.0.0"
-mypy = "^1.0.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+pre-commit = "^3.6.0"
+sqlfluff = "^3.5.0"
+sqlfluff-templater-dbt = "^3.5.0"

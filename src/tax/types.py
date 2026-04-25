@@ -61,7 +61,9 @@ class TaxConfig:
     def __post_init__(self) -> None:
         """Normalize and validate configuration."""
         self.fiat_currencies = [c.upper() for c in self.fiat_currencies]
-        self.stablecoin_map = {k.upper(): v.upper() for k, v in self.stablecoin_map.items()}
+        self.stablecoin_map = {
+            k.upper(): v.upper() for k, v in self.stablecoin_map.items()
+        }
 
 
 @dataclass
