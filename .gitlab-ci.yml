@@ -42,9 +42,8 @@ test:
   extends: .default_python
   stage: test
   script:
-    - poetry run pytest -q --maxfail=1
-      --junitxml=report.xml
-      --cov=. --cov-report=xml
+    - poetry install --no-interaction --no-ansi --with dev
+    - poetry run pytest -q --maxfail=1 --junitxml=report.xml --cov=. --cov-report=xml
   artifacts:
     when: always
     reports:
