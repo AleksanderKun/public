@@ -1,0 +1,10 @@
+[sqlfluff]
+dialect = sqlite
+templater = dbt
+exclude = target/*, dbt_packages/*
+
+[sqlfluff:rules]
+max_line_length = 120
+
+[sqlfluff:templater:dbt]
+profile_target = default
