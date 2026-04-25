@@ -1,16 +1,75 @@
-image: python:3.11
-
 stages:
+  - lint
   - test
+  - typecheck
+  - security
 
 variables:
-  PYTHONPATH: "."
+  PYTHON_VERSION: "3.11"
+  POETRY_VERSION: "1.8.3"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-before_script:
-  - pip install poetry
-  - poetry install --no-interaction
+cache:
+  key: poetry-cache
+  paths:
+    - .cache/pip
+    - .venv
 
+.default_python:
+  image: python:${PYTHON_VERSION}-slim
+  before_script:
+    - python --version
+    - pip install --upgrade pip
+    - pip install poetry==${POETRY_VERSION}
+    - poetry config virtualenvs.in-project true
+    - poetry install --no-interaction --no-ansi
+
+# -------------------
+# LINT
+# -------------------
+lint:
+  extends: .default_python
+  stage: lint
+  script:
+    - poetry run ruff check .
+    - poetry run black --check .
+
+# -------------------
+# TESTS
+# -------------------
 test:
+  extends: .default_python
   stage: test
   script:
-    - poetry run pytest
+    - poetry run pytest -q --maxfail=1
+      --junitxml=report.xml
+      --cov=. --cov-report=xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+    paths:
+      - report.xml
+      - coverage.xml
+    expire_in: 1 week
+
+# -------------------
+# TYPE CHECK (OPTIONAL)
+# -------------------
+mypy:
+  extends: .default_python
+  stage: typecheck
+  allow_failure: true
+  script:
+    - poetry run mypy .
+
+# -------------------
+# SECURITY SCAN (OPTIONAL)
+# -------------------
+bandit:
+  extends: .default_python
+  stage: security
+  allow_failure: true
+  script:
+    - poetry run bandit -r .
