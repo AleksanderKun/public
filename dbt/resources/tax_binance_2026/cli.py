@@ -155,7 +155,6 @@ def validate(ctx, csv_file: str):
     CSV_FILE: Path to Binance export CSV
     """
     try:
-        config = ctx.obj.get('config', {})
         classifier = OperationClassifier()
         
         processor = DataProcessor(classifier=classifier)

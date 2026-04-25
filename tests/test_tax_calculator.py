@@ -9,13 +9,11 @@ Tests cover:
 - Edge cases and error handling
 """
 
-from datetime import datetime
 from pathlib import Path
 
 import pytest
 
 from src.tax.config import load_tax_config
-from src.tax.nbp import NBPRateService
 from src.tax.processor import CryptoTaxCalculator
 from src.tax.types import (
     LedgerEntry,

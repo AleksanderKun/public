@@ -12,11 +12,10 @@ import csv
 import json
 import logging
 from datetime import datetime
-from decimal import Decimal
 from pathlib import Path
 from typing import Optional
 
-from models import TaxReport, NormalizedTransaction
+from models import TaxReport
 
 logger = logging.getLogger(__name__)
 

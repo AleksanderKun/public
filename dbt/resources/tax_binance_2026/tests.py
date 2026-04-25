@@ -10,9 +10,8 @@ Tests cover:
 """
 
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime
 from decimal import Decimal
-from pathlib import Path
 
 from models import (
     Transaction,
@@ -23,7 +22,7 @@ from models import (
 )
 from normalizer import OperationClassifier, DataNormalizer
 from nbp_provider import NBPRateProvider
-from tax_engine import CostPool, TaxCalculationEngine
+from tax_engine import CostPool
 
 
 class TestTransaction(unittest.TestCase):

@@ -11,7 +11,6 @@ from decimal import Decimal
 from typing import Optional
 
 from models import (
-    Transaction,
     NormalizedTransaction,
     OperationType,
     TaxEventType,
