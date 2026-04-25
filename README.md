@@ -85,6 +85,21 @@ python src/ingestion/main.py
 - Run tests: `pytest`
 - Lint: `ruff check` and `black .`
 
+## Continuous Integration
+
+This repository includes GitHub Actions workflows for:
+- linting and formatting checks with `ruff` and `black`
+- running Python tests with `pytest`
+- keeping GitLab in sync with GitHub daily
+
+### GitLab sync
+
+To enable the daily GitHub → GitLab mirror, add these repository secrets in GitHub:
+- `GITLAB_TOKEN` — GitLab personal access token with repository push rights
+- `GITLAB_PROJECT_PATH` — the GitLab path like `group/project`
+
+The sync workflow is defined in `.github/workflows/sync-gitlab.yml`.
+
 ## Contributing
 
 [Add contribution guidelines]
