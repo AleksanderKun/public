@@ -17,6 +17,9 @@ cache:
     - .cache/pip
     - .venv
 
+# -------------------
+# BASE SETUP
+# -------------------
 .default_python:
   image: python:${PYTHON_VERSION}-slim
   before_script:
@@ -26,22 +29,24 @@ cache:
     - poetry config virtualenvs.in-project true
     - poetry install --no-interaction --no-ansi --with dev
 
-# -------------------
-# LINT
-# -------------------
+# =====================================================
+# NORMAL CI (NIE DZIAŁA NA SCHEDULE)
+# =====================================================
+
 lint:
   extends: .default_python
   stage: lint
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
   script:
     - poetry run ruff check .
     - poetry run black --check .
 
-# -------------------
-# TESTS
-# -------------------
 test:
   extends: .default_python
   stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
   script:
     - poetry run pytest -q --maxfail=1 --junitxml=report.xml --cov=. --cov-report=xml
   artifacts:
@@ -49,28 +54,26 @@ test:
     reports:
       junit: report.xml
 
-# -------------------
-# TYPECHECK
-# -------------------
 mypy:
   extends: .default_python
   stage: typecheck
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
   allow_failure: true
   script:
     - poetry run mypy .
 
-# -------------------
-# SECURITY
-# -------------------
 bandit:
   extends: .default_python
   stage: security
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
   allow_failure: true
   script:
     - poetry run bandit -r .
 
 # =====================================================
-# AUTOMATION (KAŻDY JOB OSOBNO)
+# AUTOMATION (ONLY SCHEDULE)
 # =====================================================
 
 .daily_base:
@@ -90,15 +93,16 @@ daily_update:
   extends: .daily_base
   script:
     - |
-        if [ $((RANDOM % 5)) -ne 0 ]; then
-          echo "Skip update"
-          exit 0
-        fi
+      if [ $((RANDOM % 5)) -ne 0 ]; then
+        echo "Skip update"
+        exit 0
+      fi
 
-        echo "Last update: $(date)" > LAST_RUN.md
-        git add LAST_RUN.md
-        git commit -m "chore: daily update [skip ci]" || echo "No changes"
-        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
+      echo "Last update: $(date)" > LAST_RUN.md
+      git add LAST_RUN.md
+      git commit -m "chore: daily update [skip ci]" || echo "No changes"
+
+      git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
 
 # -------------------
 # DAILY TAG
@@ -107,9 +111,10 @@ daily_tag:
   extends: .daily_base
   script:
     - |
-        VERSION=$(date +%Y.%m.%d)
-        git tag "v$VERSION" || echo "Tag exists"
-        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
+      VERSION=$(date +%Y.%m.%d)
+
+      git tag "v$VERSION" || echo "Tag exists"
+      git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
 
 # -------------------
 # SMART ACTIVITY
@@ -118,30 +123,30 @@ smart_activity:
   extends: .daily_base
   script:
     - |
-        DAY=$(date +%u)
+      DAY=$(date +%u)
 
-        if [ "$DAY" -ge 6 ]; then
-          echo "Weekend - low activity"
-        fi
+      if [ "$DAY" -ge 6 ]; then
+        echo "Weekend - low activity"
+      fi
 
-        if [ $((RANDOM % 10)) -lt 7 ]; then
-          echo "No activity"
-          exit 0
-        fi
+      if [ $((RANDOM % 10)) -lt 7 ]; then
+        echo "No activity today"
+        exit 0
+      fi
 
-        mkdir -p logs
-        echo "run: $(date)" >> logs/activity.log
+      mkdir -p logs
+      echo "run: $(date)" >> logs/activity.log
 
-        if [ ! -f VERSION ]; then
-          echo "0.1.0" > VERSION
-        fi
+      if [ ! -f VERSION ]; then
+        echo "0.1.0" > VERSION
+      fi
 
-        VERSION=$(cat VERSION)
-        IFS='.' read MAJOR MINOR PATCH <<< "$VERSION"
-        PATCH=$((PATCH + 1))
-        NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-        echo $NEW_VERSION > VERSION
+      VERSION=$(cat VERSION)
+      IFS='.' read MAJOR MINOR PATCH <<< "$VERSION"
+      PATCH=$((PATCH + 1))
+      NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+      echo $NEW_VERSION > VERSION
 
-        git add logs VERSION
-        git commit -m "chore: smart update" || echo "No changes"
-        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
+      git add logs VERSION
+      git commit -m "chore: smart update" || echo "No changes"
+      git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
