@@ -17,9 +17,6 @@ cache:
     - .cache/pip
     - .venv
 
-# -------------------
-# BASE PYTHON SETUP
-# -------------------
 .default_python:
   image: python:${PYTHON_VERSION}-slim
   before_script:
@@ -51,13 +48,9 @@ test:
     when: always
     reports:
       junit: report.xml
-    paths:
-      - report.xml
-      - coverage.xml
-    expire_in: 1 week
 
 # -------------------
-# TYPE CHECK
+# TYPECHECK
 # -------------------
 mypy:
   extends: .default_python
@@ -67,7 +60,7 @@ mypy:
     - poetry run mypy .
 
 # -------------------
-# SECURITY SCAN
+# SECURITY
 # -------------------
 bandit:
   extends: .default_python
@@ -76,24 +69,29 @@ bandit:
   script:
     - poetry run bandit -r .
 
-# -------------------
-# DAILY COMMIT (SAFE VERSION)
-# -------------------
-daily_update:
+# =====================================================
+# AUTOMATION (KAŻDY JOB OSOBNO)
+# =====================================================
+
+.daily_base:
   stage: automation
   image: python:${PYTHON_VERSION}-slim
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
   before_script:
     - apt-get update && apt-get install -y git
     - git config --global user.name "CI Bot"
     - git config --global user.email "ci-bot@example.com"
 
+# -------------------
+# DAILY UPDATE
+# -------------------
+daily_update:
+  extends: .daily_base
   script:
     - |
         if [ $((RANDOM % 5)) -ne 0 ]; then
-          echo "Skip run"
+          echo "Skip update"
           exit 0
         fi
 
@@ -103,39 +101,21 @@ daily_update:
         git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
 
 # -------------------
-# DAILY TAG (VERSIONING)
+# DAILY TAG
 # -------------------
 daily_tag:
-  stage: automation
-  image: python:${PYTHON_VERSION}-slim
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
-  before_script:
-    - apt-get update && apt-get install -y git
-    - git config --global user.name "CI Bot"
-    - git config --global user.email "ci-bot@example.com"
-
+  extends: .daily_base
   script:
-    - VERSION=$(date +%Y.%m.%d)
-    - git tag "v$VERSION" || echo "Tag exists"
-    - git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
+    - |
+        VERSION=$(date +%Y.%m.%d)
+        git tag "v$VERSION" || echo "Tag exists"
+        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
 
 # -------------------
-# SMART ACTIVITY BOT
+# SMART ACTIVITY
 # -------------------
 smart_activity:
-  stage: automation
-  image: python:${PYTHON_VERSION}-slim
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
-  before_script:
-    - apt-get update && apt-get install -y git
-    - git config --global user.name "CI Bot"
-    - git config --global user.email "ci-bot@example.com"
-    - git fetch origin
-
+  extends: .daily_base
   script:
     - |
         DAY=$(date +%u)
@@ -145,15 +125,12 @@ smart_activity:
         fi
 
         if [ $((RANDOM % 10)) -lt 7 ]; then
-          echo "No activity today"
+          echo "No activity"
           exit 0
         fi
 
-        TYPE=$((RANDOM % 3))
-
         mkdir -p logs
-        echo "Last run: $(date)" >> logs/activity.log
-        echo "Health check: OK $(date)" >> logs/health.log
+        echo "run: $(date)" >> logs/activity.log
 
         if [ ! -f VERSION ]; then
           echo "0.1.0" > VERSION
@@ -165,19 +142,6 @@ smart_activity:
         NEW_VERSION="$MAJOR.$MINOR.$PATCH"
         echo $NEW_VERSION > VERSION
 
-        if [ "$TYPE" -eq 0 ]; then
-          MSG="docs: update logs and documentation"
-        elif [ "$TYPE" -eq 1 ]; then
-          MSG="fix: minor stability improvements"
-        else
-          MSG="refactor: internal cleanup"
-        fi
-
-        git add logs/ VERSION
-
-        git commit -m "$MSG [skip ci]" || echo "No changes"
-
+        git add logs VERSION
+        git commit -m "chore: smart update" || echo "No changes"
         git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
-
-        git tag "v$NEW_VERSION" || echo "tag exists"
-        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
