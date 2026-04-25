@@ -349,9 +349,15 @@ class CryptoTaxCalculator:
         """
         op = operation.strip()
 
-        # Cost-increasing operations (buying crypto with fiat)
-        if op in ("Buy Crypto With Fiat",):
-            return OperationClassification.COST
+        # Cost-increasing operations (buying stablecoins with fiat only)
+        if op == "Buy Crypto With Fiat":
+            if context and isinstance(context, dict):
+                asset = str(context.get("asset", "")).strip().upper()
+                # Only count if buying stablecoins (fiat equivalent)
+                if asset in self.config.stablecoin_map:
+                    return OperationClassification.COST
+            # Other crypto purchases (e.g., SUI, ETH) are not fiat buys
+            return OperationClassification.IGNORED
 
         # Revenue-generating operations (selling crypto for fiat)
         if op in ("Fiat Withdraw", "Transaction Sold"):
@@ -391,18 +397,19 @@ class CryptoTaxCalculator:
 
             return OperationClassification.FEE
 
-        # Bybit trade lines are taxable only for fiat currency trades.
+        # Bybit trade lines are taxable only for actual fiat currency trades (not stablecoins).
+        # This matches the DBT script which only considers EUR, PLN, USD, GBP as taxable.
         if context and isinstance(context, dict):
             source = str(context.get("source", "")).strip().lower()
             asset = str(context.get("asset", "")).strip().upper()
             amount = float(context.get("amount", 0.0) or 0.0)
-            fiat_asset = self.config.stablecoin_map.get(asset, asset)
+            # Only check against actual fiat currencies, not stablecoins
             if source == "bybit" and op == "TRADE BUY":
-                if fiat_asset in self.config.fiat_currencies:
+                if asset in self.config.fiat_currencies:
                     return OperationClassification.COST
                 return OperationClassification.IGNORED
             if source == "bybit" and op == "TRADE SELL":
-                if fiat_asset in self.config.fiat_currencies:
+                if asset in self.config.fiat_currencies:
                     return OperationClassification.REVENUE
                 return OperationClassification.IGNORED
 

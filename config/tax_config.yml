@@ -1,27 +1,78 @@
+# Configuration for Cryptocurrency Tax Calculation Engine - Polish Tax Law (PIT-38)
+# 
+# This file controls the behavior of the tax calculation module.
+# Edit values according to your needs and Polish tax requirements.
+
+# Tax year being calculated
 tax_year: 2026
+
+# Fiat currencies recognized for tax calculations
+# These are used to determine when a transaction creates a taxable event
 fiat_currencies:
   - PLN
   - USD
   - EUR
   - GBP
+  - CHF
+  - JPY
+  - AUD
+  - CAD
+
+# Stablecoin to fiat currency mapping
+# Stablecoins are still converted to PLN per Polish tax law
 stablecoin_map:
   USDT: USD
   USDC: USD
   BUSD: USD
   TUSD: USD
+  DAI: USD
   EURT: EUR
   EUROC: EUR
-nbp_table: A
+
+# NBP (National Bank of Poland) API settings
+nbp_table: A                              # Table 'A' for standard daily rates
 nbp_base_url: https://api.nbp.pl/api/exchangerates/rates
-nbp_cache_path: data/external/nbp_rate_cache.json
+nbp_cache_path: data/external/nbp_cache.json
+
+# Treatment of special operations
+# These determine whether certain transaction types are treated as taxable events
+treat_airdrops_as_income: false           # Conservative: ignore airdrops per Polish law
+treat_staking_as_income: false            # Conservative: ignore staking/rewards
+treat_earn_rewards_as_income: false       # Conservative: ignore Binance Earn rewards
+
+# Operations to explicitly ignore (crypto-crypto, transfers only)
+# These are never taxable under Polish law
 ignore_operations:
-  - Transaction Buy
-  - Transaction Spend
-  - Binance Convert
-  - Deposit
-  - Withdraw
+  - Transaction Buy      # Crypto-to-crypto swap
+  - Transaction Spend    # Crypto-to-crypto payment
+  - Binance Convert      # Binance internal swap
+  - Deposit              # Crypto transfer in
+  - Withdraw             # Crypto transfer out
+
+# Optional operations requiring special handling
+# Can be made taxable via configuration above
 optional_operations:
-  - Airdrop
-  - Reward
-  - Staking
-  - Earn
+  - Airdrop              # Receipt of free crypto
+  - Reward               # Interest/reward payments
+  - Staking              # Staking rewards
+  - Earn                 # Binance Earn products
+  - Mining               # Crypto mining proceeds
+
+# CSV export settings
+output_formats:
+  - csv                  # Transaction ledger
+  - summary              # Annual summary
+  - json                 # Machine-readable export
+  - text                 # Human-readable report
+
+# Validation settings
+validation:
+  strict_mode: true      # Reject any unrecognized operations
+  max_lookback_days: 10  # Max days to search for NBP rates when missing
+  timeout_seconds: 5     # NBP API timeout
+
+# Logging configuration
+logging:
+  level: INFO            # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: detailed       # simple, detailed, json
+

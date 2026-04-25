@@ -16,6 +16,11 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Prepare activity files
+      run: |
+        mkdir -p scripts dbt/models/staging
+        touch README.md activity_log.md scripts/placeholder.py dbt/models/staging/stg_example.sql
+
     - name: Determine activity level
       id: activity
       run: |
