@@ -349,15 +349,9 @@ class CryptoTaxCalculator:
         """
         op = operation.strip()
 
-        # Cost-increasing operations (buying stablecoins with fiat only)
+        # Cost-increasing operations (buying crypto with fiat)
         if op == "Buy Crypto With Fiat":
-            if context and isinstance(context, dict):
-                asset = str(context.get("asset", "")).strip().upper()
-                # Only count if buying stablecoins (fiat equivalent)
-                if asset in self.config.stablecoin_map:
-                    return OperationClassification.COST
-            # Other crypto purchases (e.g., SUI, ETH) are not fiat buys
-            return OperationClassification.IGNORED
+            return OperationClassification.COST
 
         # Revenue-generating operations (selling crypto for fiat)
         if op in ("Fiat Withdraw", "Transaction Sold"):
