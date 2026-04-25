@@ -3,7 +3,7 @@ name = "data-project"
 version = "0.1.0"
 description = "Production-grade data analytics project"
 authors = ["Aleksander Kun <alek.kunysz@gmail.com>"]
-packages = [{include = "data_project", from = "src"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
