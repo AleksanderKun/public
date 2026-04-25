@@ -3,6 +3,7 @@ stages:
   - test
   - typecheck
   - security
+  - automation
 
 variables:
   PYTHON_VERSION: "3.11"
@@ -11,11 +12,14 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 cache:
-  key: poetry-cache
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .cache/pip
     - .venv
 
+# -------------------
+# BASE PYTHON SETUP
+# -------------------
 .default_python:
   image: python:${PYTHON_VERSION}-slim
   before_script:
@@ -42,7 +46,6 @@ test:
   extends: .default_python
   stage: test
   script:
-    - poetry install --no-interaction --no-ansi --with dev
     - poetry run pytest -q --maxfail=1 --junitxml=report.xml --cov=. --cov-report=xml
   artifacts:
     when: always
@@ -72,3 +75,40 @@ bandit:
   allow_failure: true
   script:
     - poetry run bandit -r .
+
+# -------------------
+# DAILY COMMIT (REAL CHANGE)
+# -------------------
+daily_update:
+  stage: automation
+  image: python:${PYTHON_VERSION}-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - apt-get update && apt-get install -y git
+    - git config --global user.name "CI Bot"
+    - git config --global user.email "ci-bot@example.com"
+  script:
+    - if [ $((RANDOM % 5)) -ne 0 ]; then echo "Skip run"; exit 0; fi
+
+    - echo "Last update: $(date)" > LAST_RUN.md
+    - git add LAST_RUN.md
+    - git commit -m "chore: daily update [skip ci]" || echo "No changes"
+    - git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git HEAD:$CI_DEFAULT_BRANCH
+
+# -------------------
+# DAILY TAG (VERSIONING)
+# -------------------
+daily_tag:
+  stage: automation
+  image: python:${PYTHON_VERSION}-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - apt-get update && apt-get install -y git
+    - git config --global user.name "CI Bot"
+    - git config --global user.email "ci-bot@example.com"
+  script:
+    - VERSION=$(date +%Y.%m.%d)
+    - git tag "v$VERSION" || echo "Tag exists"
+    - git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git --tags
