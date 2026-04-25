@@ -28,7 +28,7 @@ class NBPRateProvider:
 
     def _load(self):
         if self.cache_path.exists():
-            with open(self.cache_path, 'r', encoding='utf-8') as f: 
+            with open(self.cache_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         return {"PLN": 1.0}
 
@@ -37,14 +37,16 @@ class NBPRateProvider:
             json.dump(self.cache, f)
 
     def get_rate(self, currency: str, date: datetime) -> float:
-        if currency in ["USDC", "USDT", "BUSD"]: currency = "USD"
-        if currency == "PLN": return 1.0
+        if currency in ["USDC", "USDT", "BUSD"]:
+            currency = "USD"
+        if currency == "PLN":
+            return 1.0
         
         target_date = date - timedelta(days=1)
         date_str = target_date.strftime("%Y-%m-%d")
         cache_key = f"{currency}_{date_str}"
 
-        if cache_key in self.cache: 
+        if cache_key in self.cache:
             return self.cache[cache_key]
 
         for i in range(10):
@@ -56,7 +58,7 @@ class NBPRateProvider:
                     val = r.json()['rates'][0]['mid']
                     self.cache[cache_key] = val
                     return val
-            except: 
+            except Exception:
                 continue
         return 1.0
 

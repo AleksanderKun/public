@@ -11,7 +11,6 @@ Orchestrates the full workflow:
 
 import csv
 import logging
-from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Optional

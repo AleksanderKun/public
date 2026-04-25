@@ -22,19 +22,24 @@ class NBPRateProvider:
 
     def _load(self):
         if self.cache_path.exists():
-            with open(self.cache_path, 'r', encoding='utf-8') as f: return json.load(f)
+            with open(self.cache_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
         return {"PLN": 1.0}
 
     def save(self):
-        with open(self.cache_path, 'w', encoding='utf-8') as f: json.dump(self.cache, f)
+        with open(self.cache_path, 'w', encoding='utf-8') as f:
+            json.dump(self.cache, f)
 
     def get_rate(self, currency: str, date: datetime) -> float:
-        if currency in ["USDC", "USDT", "BUSD"]: currency = "USD"
-        if currency == "PLN": return 1.0
+        if currency in ["USDC", "USDT", "BUSD"]:
+            currency = "USD"
+        if currency == "PLN":
+            return 1.0
         target_date = date - timedelta(days=1)
         date_str = target_date.strftime("%Y-%m-%d")
         cache_key = f"{currency}_{date_str}"
-        if cache_key in self.cache: return self.cache[cache_key]
+        if cache_key in self.cache:
+            return self.cache[cache_key]
 
         for i in range(10):
             search_date = (target_date - timedelta(days=i)).strftime("%Y-%m-%d")
@@ -45,7 +50,8 @@ class NBPRateProvider:
                     val = r.json()['rates'][0]['mid']
                     self.cache[cache_key] = val
                     return val
-            except: continue
+            except Exception:
+                continue
         return 1.0
 
 def process_bybit_tax(year: int):
@@ -76,7 +82,7 @@ def process_bybit_tax(year: int):
         return None
 
     df_filtered = df.filter(pl.col("Time(UTC)").dt.year() == year)
-    if df_filtered.is_empty(): 
+    if df_filtered.is_empty():
         return {"rok": year, "przychod": 0.0, "koszt": 0.0}
 
     tax_entries = []
