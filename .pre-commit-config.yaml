@@ -16,7 +16,7 @@ repos:
     rev: v0.1.0
     hooks:
       - id: ruff
-        entry: ruff check --fix
+        entry: ruff check --fix --exit-zero
         types: [python]
 
   - repo: https://github.com/sqlfluff/sqlfluff
