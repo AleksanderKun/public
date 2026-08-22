@@ -26,3 +26,16 @@ Thumbs.db
 # Data
 data/raw/
 data/processed/
+
+# CV output
+output/
+src/cv/output/
+src/cv/**/*.pdf
+src/cv/**/*.aux
+src/cv/**/*.log
+src/cv/**/*.out
+
+# Local/private CV data
+src/cv/personal-data.local.js
+src/cv/private/
+src/cv/**/*.local.*

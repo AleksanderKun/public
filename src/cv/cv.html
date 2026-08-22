@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aleksander Kunysz | CV</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 8mm 11mm;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background: #ffffff;
+        color: #17202a;
+        font-size: 9.1pt;
+        line-height: 1.38;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+
+      /* Hero Header */
+      .hero-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-bottom: 2px solid #0f766e;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+      }
+
+      .hero-left {
+        vertical-align: top;
+        text-align: left;
+      }
+
+      .hero-right {
+        vertical-align: top;
+        text-align: right;
+        font-size: 8.3pt;
+        color: #5c6877;
+        line-height: 1.4;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 19.5pt;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #0f766e;
+        line-height: 1.1;
+      }
+
+      .title {
+        margin-top: 2px;
+        font-size: 9.8pt;
+        font-weight: 700;
+        color: #2563eb;
+      }
+
+      .location {
+        margin-top: 1px;
+        font-size: 8.3pt;
+        color: #5c6877;
+      }
+
+      .contact a {
+        color: #0f766e;
+        text-decoration: none;
+      }
+
+      /* Sections */
+      .section {
+        margin-top: 9px;
+      }
+
+      .section-title {
+        font-size: 8.3pt;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #0f766e;
+        margin-bottom: 4px;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #dfe6ee;
+      }
+
+      .summary, .job-bullets li {
+        font-size: 8.8pt;
+        line-height: 1.36;
+        color: #17202a;
+      }
+
+      /* Technical Skills */
+      .skill-group {
+        margin-bottom: 3px;
+        font-size: 8.3pt;
+      }
+
+      .skill-label {
+        font-weight: 700;
+        color: #0f766e;
+        margin-right: 5px;
+      }
+
+      .pill {
+        display: inline-block;
+        margin: 1px 3px 1px 0;
+        padding: 1px 5px;
+        border-radius: 3px;
+        background: #e8f2ff;
+        color: #1e40af;
+        font-size: 7.8pt;
+        font-weight: 600;
+      }
+
+      /* Experience & Jobs */
+      .job {
+        margin-bottom: 6px;
+      }
+
+      .job-header-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2px;
+      }
+
+      .job-title {
+        font-weight: 700;
+        font-size: 9pt;
+        color: #0f172a;
+        text-align: left;
+      }
+
+      .job-date {
+        font-size: 8.3pt;
+        color: #5c6877;
+        text-align: right;
+        font-weight: 600;
+      }
+
+      .job-bullets {
+        margin: 2px 0 0 15px;
+        padding: 0;
+      }
+
+      .job-bullets li {
+        margin-bottom: 2.5px;
+      }
+
+      .link-row {
+        margin-bottom: 2px;
+        font-size: 8.3pt;
+      }
+
+      .link-row a {
+        color: #0f766e;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* Courses layout - 2 columns */
+      .cert-grid {
+        display: table;
+        width: 100%;
+        margin-top: 2px;
+      }
+
+      .cert-col {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+      }
+
+      h2, h3, p { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <table class="hero-table">
+        <tr>
+          <td class="hero-left">
+            <h1 id="cv-name">Aleksander Kunysz</h1>
+            <div class="title" id="cv-title">Mid Data Engineer | Snowflake & Modern Data Stack Specialist</div>
+            <div class="location" id="cv-location">Warsaw, Poland</div>
+          </td>
+          <td class="hero-right contact">
+            <div id="cv-contact-line">alek.kunysz@gmail.com · +48 792 469 993</div>
+            <div><a id="cv-linkedin-link" href="https://linkedin.com/in/aleksander-kunysz-mpw-0740b8181/">linkedin.com/in/aleksander-kunysz-mpw-0740b8181/</a></div>
+            <div><a id="cv-gitlab-link" href="https://gitlab.com/AleksanderKun/public">gitlab.com/AleksanderKun/public</a></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="section">
+        <div class="section-title">About Me</div>
+        <p class="summary">Data Engineer with strong hands-on experience in modern warehouse and analytics engineering, focused on building scalable, reliable data solutions in Snowflake, Databricks, dbt, Python, and SQL. Worked across data warehouse optimization, business-rule implementation, data integration, reporting enablement, and regulatory-driven processes in financial environments.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skill-group"><span class="skill-label">Data Warehousing & Cloud Platforms:</span><span class="pill">Snowflake</span><span class="pill">Databricks</span></div>
+        <div class="skill-group"><span class="skill-label">Transformation, Orchestration & Frameworks:</span><span class="pill">dbt</span><span class="pill">Apache Airflow</span><span class="pill">PySpark</span></div>
+        <div class="skill-group"><span class="skill-label">DataOps, CI/CD & Version Control:</span><span class="pill">Liquibase</span><span class="pill">GitLab CI/CD</span><span class="pill">Git</span><span class="pill">Linux</span></div>
+        <div class="skill-group"><span class="skill-label">Programming & Querying:</span><span class="pill">Python</span><span class="pill">SQL</span><span class="pill">Bash</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Highlights</div>
+        <ul class="job-bullets">
+          <li>Built and maintained production-grade data pipelines in regulated financial environments.</li>
+          <li>Worked across warehouse modeling, orchestration, release automation, and reporting enablement.</li>
+          <li>Delivered solutions with Snowflake, dbt, Databricks, Airflow, Python, SQL, and Liquibase.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+          <table class="job-header-table">
+            <tr>
+              <td class="job-title">Mid Data Engineer · XTB · Warsaw</td>
+              <td class="job-date">Feb 2025 – Present</td>
+            </tr>
+          </table>
+          <ul class="job-bullets">
+            <li><strong>Fractional Shares Ledger Platform:</strong> Built PySpark/Databricks pipelines orchestrated with Airflow and dbt for fractional share trading ledger processing.</li>
+            <li><strong>Regulatory & Tax Engine:</strong> Designed calculation engines for PIT-8C, Chilean Tax, and IFT-1R using Snowflake, dbt, Liquibase, Python, and SQL.</li>
+            <li><strong>Financial & Accounting Integration:</strong> Built ETL/ELT synchronization flows with Exact, DAX, and Sys, automating bank statement reconciliation.</li>
+            <li><strong>Performance & Cost Optimization:</strong> Refactored analytical models in Snowflake/dbt to lower latency and infrastructure costs.</li>
+            <li><strong>DataOps:</strong> Automated database schema migrations and release workflows using Liquibase and GitLab CI/CD.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <table class="job-header-table">
+            <tr>
+              <td class="job-title">Data Scientist / Analyst · PKO Bank Polski · Warsaw</td>
+              <td class="job-date">Jan 2024 – Jan 2025</td>
+            </tr>
+          </table>
+          <ul class="job-bullets">
+            <li>Worked in profitability and pricing domain, supporting analytical and data-driven solutions in a regulated financial environment.</li>
+            <li>Used Python, SQL, and data analysis tools to prepare data, build reports, and support operational and strategic decision-making.</li>
+            <li>Contributed to analytical workflows combining business understanding with technical execution.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <table class="job-header-table">
+            <tr>
+              <td class="job-title">Data Analyst / Reporting · XTB · Warsaw</td>
+              <td class="job-date">Feb 2021 – Jan 2024</td>
+            </tr>
+          </table>
+          <ul class="job-bullets">
+            <li>Delivered automated reporting and analytical solutions using Python, SQL, and Power BI for trading and business needs.</li>
+            <li>Integrated transactional and market data into analytical workflows, supporting reliable reporting and decision-making.</li>
+            <li>Collaborated with warehouse stakeholders to improve data access, consistency, and reporting performance.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Projects & Public Work</div>
+        <div class="link-row"><a href="https://gitlab.com/AleksanderKun/public">gitlab.com/AleksanderKun/public</a></div>
+        <ul class="job-bullets">
+          <li><strong>Crypto Tax & P&L Calculator:</strong> Automated processing engines for Binance/ByBit API to calculate tax liabilities and P&L. Stack: Python, SQL, dbt modeling.</li>
+          <li><strong>Game Ranger Tools:</strong> Data quality and automation testing toolkit to streamline pipeline assertions and automated test orchestration. Stack: Python.</li>
+          <li><strong>Data Engineering Workflows:</strong> Practical data workflows and automation solutions using Python, SQL, and modern warehouse tooling.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Education</div>
+        <div class="job">
+          <table class="job-header-table">
+            <tr>
+              <td class="job-title">SGH Warsaw School of Economics · Warsaw</td>
+              <td class="job-date">2020 – 2022</td>
+            </tr>
+          </table>
+          <div class="summary">Master’s degree in Finance and Accounting with Big Data. Specialization: Capital Markets.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Courses & Certifications</div>
+        <div class="cert-grid">
+          <div class="cert-col">
+            <ul class="job-bullets">
+              <li>Data Science Professional Certification – IBM (2024)</li>
+              <li>AI for Everyone – DeepLearning.AI (2024)</li>
+              <li>Power BI Data Analyst – Microsoft (2024)</li>
+            </ul>
+          </div>
+          <div class="cert-col">
+            <ul class="job-bullets">
+              <li>Snowflake Fundamentals – In-person Training (2024)</li>
+              <li>Data Analyst with Python – DataCamp (39h, 2022)</li>
+              <li>Data Analyst in SQL – DataCamp (40h, 2022)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
