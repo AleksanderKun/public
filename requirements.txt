@@ -1,1 +1,14 @@
 PyQt5
+polars==0.20.0
+pandas==2.0.0
+requests==2.31.0
+pyyaml==6.0
+click==8.1.7
+mypy==1.7.0
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.12.0
+flake8==6.1.0
+pylint==3.0.0
+sphinx==7.2.0
+sphinx-rtd-theme==2.0.0
