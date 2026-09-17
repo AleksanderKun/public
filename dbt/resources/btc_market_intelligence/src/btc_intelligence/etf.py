@@ -9,7 +9,21 @@ def read_etf_flows(path: str | Path) -> list[Observation]:
     observations = []
     with Path(path).open(newline="", encoding="utf-8") as stream:
         for row in csv.DictReader(stream):
-            timestamp = datetime.strptime(row["date"], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            timestamp = datetime.strptime(row["date"], "%Y-%m-%d").replace(
+                tzinfo=timezone.utc
+            )
             fund = row["fund"]
-            observations.append(Observation(utc_now(), "etf_csv_import", fund, "etf", fund, "net_flow_usd", float(row["net_flow_usd"]), {"date": row["date"], "fund": fund}, timestamp))
+            observations.append(
+                Observation(
+                    utc_now(),
+                    "etf_csv_import",
+                    fund,
+                    "etf",
+                    fund,
+                    "net_flow_usd",
+                    float(row["net_flow_usd"]),
+                    {"date": row["date"], "fund": fund},
+                    timestamp,
+                )
+            )
     return observations

@@ -33,7 +33,9 @@ class Observation:
             "value": self.value,
             "metadata": self.metadata,
         }
-        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        return hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -64,13 +66,26 @@ class NormalizedTrade:
             "quantity": self.quantity,
             "aggressor_side": self.aggressor_side,
             "source": self.source,
-            "source_timestamp_utc": self.source_timestamp_utc.isoformat() if self.source_timestamp_utc else None,
+            "source_timestamp_utc": self.source_timestamp_utc.isoformat()
+            if self.source_timestamp_utc
+            else None,
         }
-        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        return hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
 
 
 def _normalize_aggressor_side(exchange: str, metadata: dict[str, Any]) -> str:
-    raw_side = str(metadata.get("side") or metadata.get("raw_side") or metadata.get("trade_side") or "").strip().lower()
+    raw_side = (
+        str(
+            metadata.get("side")
+            or metadata.get("raw_side")
+            or metadata.get("trade_side")
+            or ""
+        )
+        .strip()
+        .lower()
+    )
     if exchange == "binance":
         if metadata.get("is_buyer_maker") is True:
             return "sell"
@@ -101,9 +116,14 @@ def normalize_trade(
     normalized_quantity = float(quantity)
     normalized_timestamp = source_timestamp_utc or utc_now()
     aggressor_side = _normalize_aggressor_side(exchange, metadata)
-    metadata.setdefault("aggressor_side_methodology", "Exchange-provided trade leg was mapped directly when unambiguous; otherwise side remains unknown to avoid fabrication.")
+    metadata.setdefault(
+        "aggressor_side_methodology",
+        "Exchange-provided trade leg was mapped directly when unambiguous; otherwise side remains unknown to avoid fabrication.",
+    )
     if aggressor_side == "unknown":
-        metadata["aggressor_side_methodology"] = "No unambiguous aggressor side was provided by the exchange; side was left as unknown to avoid fabrication."
+        metadata[
+            "aggressor_side_methodology"
+        ] = "No unambiguous aggressor side was provided by the exchange; side was left as unknown to avoid fabrication."
     return NormalizedTrade(
         timestamp_utc=normalized_timestamp,
         exchange=exchange,

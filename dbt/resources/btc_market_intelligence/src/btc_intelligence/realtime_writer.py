@@ -7,7 +7,13 @@ from typing import Any
 
 
 class BoundedBatchWriter:
-    def __init__(self, write_batch: Callable[[list[Any]], Awaitable[None]], max_queue_size: int = 1000, batch_size: int = 100, flush_interval_ms: int = 250):
+    def __init__(
+        self,
+        write_batch: Callable[[list[Any]], Awaitable[None]],
+        max_queue_size: int = 1000,
+        batch_size: int = 100,
+        flush_interval_ms: int = 250,
+    ):
         self.write_batch = write_batch
         self.queue: asyncio.Queue[Any] = asyncio.Queue(maxsize=max_queue_size)
         self.batch_size = batch_size
@@ -38,7 +44,11 @@ class BoundedBatchWriter:
         while not self._stopping or not self.queue.empty():
             batch: list[Any] = []
             try:
-                batch.append(await asyncio.wait_for(self.queue.get(), timeout=self.flush_interval))
+                batch.append(
+                    await asyncio.wait_for(
+                        self.queue.get(), timeout=self.flush_interval
+                    )
+                )
             except asyncio.TimeoutError:
                 continue
             while len(batch) < self.batch_size and not self.queue.empty():

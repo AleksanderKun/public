@@ -270,9 +270,12 @@ class DuckDBStore:
                 ],
             )
             target_table = (
-                "trades" if observation.metric.startswith("trade_")
-                else "liquidation_events" if observation.metric.startswith("liquidation_")
-                else "orderbook_snapshots" if observation.metric.startswith("best_")
+                "trades"
+                if observation.metric.startswith("trade_")
+                else "liquidation_events"
+                if observation.metric.startswith("liquidation_")
+                else "orderbook_snapshots"
+                if observation.metric.startswith("best_")
                 else None
             )
             if target_table:
@@ -325,7 +328,9 @@ class DuckDBStore:
         self.connection.commit()
         return inserted
 
-    def write_raw_event(self, dataset: str, event: dict, validation_status: str = "VALID") -> bool:
+    def write_raw_event(
+        self, dataset: str, event: dict, validation_status: str = "VALID"
+    ) -> bool:
         table = {
             "trades": "raw_trades",
             "orderbook": "raw_orderbook",
@@ -338,10 +343,14 @@ class DuckDBStore:
         event_id = event.get("event_id") or event.get("raw_payload_hash")
         if not event_id:
             raise ValueError("Raw event requires event_id or raw_payload_hash")
-        if self.connection.execute(f"SELECT 1 FROM {table} WHERE event_id = ?", [event_id]).fetchone():
+        if self.connection.execute(
+            f"SELECT 1 FROM {table} WHERE event_id = ?", [event_id]
+        ).fetchone():
             return False
         timestamp = event.get("event_timestamp") or event.get("timestamp")
-        ingestion_timestamp = event.get("ingestion_timestamp_utc") or datetime.now(timezone.utc)
+        ingestion_timestamp = event.get("ingestion_timestamp_utc") or datetime.now(
+            timezone.utc
+        )
         common = {
             "event_id": event_id,
             "timestamp": timestamp,
@@ -350,45 +359,162 @@ class DuckDBStore:
             "exchange": event.get("exchange"),
             "market_type": event.get("market_type"),
             "symbol": event.get("symbol"),
-            "metadata": json.dumps(event.get("raw_payload", event.get("metadata", {})), sort_keys=True),
+            "metadata": json.dumps(
+                event.get("raw_payload", event.get("metadata", {})), sort_keys=True
+            ),
             "ingestion": ingestion_timestamp,
             "hash": event.get("raw_payload_hash", ""),
             "status": validation_status,
         }
         if dataset == "trades":
-            values = [event_id, common["timestamp"], common["source_timestamp"], common["source"], common["exchange"], common["market_type"], common["symbol"], str(event["trade_id"]), event["price"], event["quantity"], event["quote_volume"], event.get("aggressor_side", "unknown"), common["metadata"], common["ingestion"], common["hash"], common["status"]]
+            values = [
+                event_id,
+                common["timestamp"],
+                common["source_timestamp"],
+                common["source"],
+                common["exchange"],
+                common["market_type"],
+                common["symbol"],
+                str(event["trade_id"]),
+                event["price"],
+                event["quantity"],
+                event["quote_volume"],
+                event.get("aggressor_side", "unknown"),
+                common["metadata"],
+                common["ingestion"],
+                common["hash"],
+                common["status"],
+            ]
             columns = "event_id, timestamp_utc, source_timestamp_utc, source, exchange, market_type, symbol, trade_id, price, quantity, quote_volume, aggressor_side, metadata, ingestion_timestamp_utc, raw_payload_hash, validation_status"
         elif dataset == "orderbook":
             levels = event.get("levels", [])
-            rows = levels or [{"side": "bid", "price": event.get("best_bid"), "quantity": event.get("bid_quantity", 0)}, {"side": "ask", "price": event.get("best_ask"), "quantity": event.get("ask_quantity", 0)}]
+            rows = levels or [
+                {
+                    "side": "bid",
+                    "price": event.get("best_bid"),
+                    "quantity": event.get("bid_quantity", 0),
+                },
+                {
+                    "side": "ask",
+                    "price": event.get("best_ask"),
+                    "quantity": event.get("ask_quantity", 0),
+                },
+            ]
             inserted = False
             for level in rows:
                 if level.get("price") is None:
                     continue
-                values = [event_id + ":" + str(level.get("side")), common["timestamp"], common["source"], common["exchange"], common["market_type"], common["symbol"], level.get("side"), level.get("price"), level.get("quantity", 0), common["metadata"], event.get("sequence_id"), event.get("update_type", "snapshot"), common["ingestion"], common["hash"], common["status"]]
-                self.connection.execute("INSERT INTO raw_orderbook (event_id, timestamp_utc, source, exchange, market_type, symbol, side, price, quantity, metadata, sequence_id, update_type, ingestion_timestamp_utc, raw_payload_hash, validation_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING", values)
+                values = [
+                    event_id + ":" + str(level.get("side")),
+                    common["timestamp"],
+                    common["source"],
+                    common["exchange"],
+                    common["market_type"],
+                    common["symbol"],
+                    level.get("side"),
+                    level.get("price"),
+                    level.get("quantity", 0),
+                    common["metadata"],
+                    event.get("sequence_id"),
+                    event.get("update_type", "snapshot"),
+                    common["ingestion"],
+                    common["hash"],
+                    common["status"],
+                ]
+                self.connection.execute(
+                    "INSERT INTO raw_orderbook (event_id, timestamp_utc, source, exchange, market_type, symbol, side, price, quantity, metadata, sequence_id, update_type, ingestion_timestamp_utc, raw_payload_hash, validation_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING",
+                    values,
+                )
                 inserted = True
             self.connection.commit()
             return inserted
         elif dataset == "funding":
-            values = [event_id, common["timestamp"], common["exchange"], common["market_type"], common["symbol"], event.get("funding_rate"), common["source_timestamp"], common["source"], common["metadata"], event.get("next_funding_time"), event.get("mark_price"), event.get("index_price"), common["ingestion"], common["hash"], common["status"]]
+            values = [
+                event_id,
+                common["timestamp"],
+                common["exchange"],
+                common["market_type"],
+                common["symbol"],
+                event.get("funding_rate"),
+                common["source_timestamp"],
+                common["source"],
+                common["metadata"],
+                event.get("next_funding_time"),
+                event.get("mark_price"),
+                event.get("index_price"),
+                common["ingestion"],
+                common["hash"],
+                common["status"],
+            ]
             columns = "event_id, timestamp_utc, exchange, market_type, symbol, funding_rate, source_timestamp_utc, source, metadata, next_funding_time, mark_price, index_price, ingestion_timestamp_utc, raw_payload_hash, validation_status"
         elif dataset == "open_interest":
-            values = [event_id, common["timestamp"], common["exchange"], common["market_type"], common["symbol"], event.get("open_interest"), common["source_timestamp"], common["source"], common["metadata"], event.get("open_interest_usd"), common["ingestion"], common["hash"], common["status"]]
+            values = [
+                event_id,
+                common["timestamp"],
+                common["exchange"],
+                common["market_type"],
+                common["symbol"],
+                event.get("open_interest"),
+                common["source_timestamp"],
+                common["source"],
+                common["metadata"],
+                event.get("open_interest_usd"),
+                common["ingestion"],
+                common["hash"],
+                common["status"],
+            ]
             columns = "event_id, timestamp_utc, exchange, market_type, symbol, open_interest, source_timestamp_utc, source, metadata, open_interest_usd, ingestion_timestamp_utc, raw_payload_hash, validation_status"
         else:
-            values = [event_id, common["timestamp"], common["exchange"], common["market_type"], common["symbol"], event.get("side", "unknown"), event.get("price"), event.get("quantity"), event.get("USD_value", 0), common["source"], common["metadata"], event.get("liquidation_type"), common["ingestion"], common["hash"], common["status"]]
+            values = [
+                event_id,
+                common["timestamp"],
+                common["exchange"],
+                common["market_type"],
+                common["symbol"],
+                event.get("side", "unknown"),
+                event.get("price"),
+                event.get("quantity"),
+                event.get("USD_value", 0),
+                common["source"],
+                common["metadata"],
+                event.get("liquidation_type"),
+                common["ingestion"],
+                common["hash"],
+                common["status"],
+            ]
             columns = "event_id, timestamp_utc, exchange, market_type, symbol, side, price, quantity, usd_value, source, metadata, liquidation_type, ingestion_timestamp_utc, raw_payload_hash, validation_status"
-        self.connection.execute(f"INSERT INTO {table} ({columns}) VALUES ({', '.join('?' for _ in values)})", values)
+        self.connection.execute(
+            f"INSERT INTO {table} ({columns}) VALUES ({', '.join('?' for _ in values)})",
+            values,
+        )
         self.connection.commit()
         return True
 
     def reject_raw_event(self, dataset: str, event: dict, validation: dict) -> None:
-        event_id = event.get("event_id") or event.get("raw_payload_hash") or str(hash(json.dumps(event, sort_keys=True)))
-        self.connection.execute("INSERT INTO rejected_raw_events VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING", [event_id, event.get("exchange", "unknown"), dataset, validation.get("status", "INVALID"), json.dumps(validation.get("reasons", [])), json.dumps(event, sort_keys=True)])
+        event_id = (
+            event.get("event_id")
+            or event.get("raw_payload_hash")
+            or str(hash(json.dumps(event, sort_keys=True)))
+        )
+        self.connection.execute(
+            "INSERT INTO rejected_raw_events VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING",
+            [
+                event_id,
+                event.get("exchange", "unknown"),
+                dataset,
+                validation.get("status", "INVALID"),
+                json.dumps(validation.get("reasons", [])),
+                json.dumps(event, sort_keys=True),
+            ],
+        )
         self.connection.commit()
 
-    def write_websocket_event(self, event: Any, validation_status: str = "VALID", persist_snapshot: bool = True) -> bool:
+    def write_websocket_event(
+        self,
+        event: Any,
+        validation_status: str = "VALID",
+        persist_snapshot: bool = True,
+    ) -> bool:
         ingestion = datetime.now(timezone.utc)
         common = {
             "event_timestamp": event.event_timestamp,
@@ -403,18 +529,67 @@ class DuckDBStore:
         }
         if event.dataset == "orderbook":
             if persist_snapshot:
-                snapshot = {**common, "event_id": event.event_id + ":snapshot", "timestamp": event.event_timestamp, "levels": [{"side": "bid", "price": price, "quantity": quantity} for price, quantity in event.bids] + [{"side": "ask", "price": price, "quantity": quantity} for price, quantity in event.asks], "sequence_id": event.sequence_id, "update_type": "snapshot"}
+                snapshot = {
+                    **common,
+                    "event_id": event.event_id + ":snapshot",
+                    "timestamp": event.event_timestamp,
+                    "levels": [
+                        {"side": "bid", "price": price, "quantity": quantity}
+                        for price, quantity in event.bids
+                    ]
+                    + [
+                        {"side": "ask", "price": price, "quantity": quantity}
+                        for price, quantity in event.asks
+                    ],
+                    "sequence_id": event.sequence_id,
+                    "update_type": "snapshot",
+                }
                 self.write_raw_event("orderbook", snapshot, validation_status)
                 return True
             update_id = event.event_id
-            if self.connection.execute("SELECT 1 FROM raw_orderbook_updates WHERE event_id = ?", [update_id]).fetchone():
+            if self.connection.execute(
+                "SELECT 1 FROM raw_orderbook_updates WHERE event_id = ?", [update_id]
+            ).fetchone():
                 return False
-            self.connection.execute("INSERT INTO raw_orderbook_updates (event_id, timestamp_utc, exchange, market_type, symbol, bids, asks, sequence_id, previous_sequence_id, update_type, ingestion_timestamp_utc, raw_payload_hash, validation_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING", [update_id, event.event_timestamp, event.exchange, event.market_type, event.symbol, json.dumps(event.bids), json.dumps(event.asks), event.sequence_id, event.previous_sequence_id, event.update_type or "delta", ingestion, event.raw_payload_hash, validation_status])
+            self.connection.execute(
+                "INSERT INTO raw_orderbook_updates (event_id, timestamp_utc, exchange, market_type, symbol, bids, asks, sequence_id, previous_sequence_id, update_type, ingestion_timestamp_utc, raw_payload_hash, validation_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (event_id) DO NOTHING",
+                [
+                    update_id,
+                    event.event_timestamp,
+                    event.exchange,
+                    event.market_type,
+                    event.symbol,
+                    json.dumps(event.bids),
+                    json.dumps(event.asks),
+                    event.sequence_id,
+                    event.previous_sequence_id,
+                    event.update_type or "delta",
+                    ingestion,
+                    event.raw_payload_hash,
+                    validation_status,
+                ],
+            )
             return True
         if event.dataset == "trades":
-            payload = {**common, "event_id": event.event_id, "trade_id": event.trade_id, "price": event.price, "quantity": event.quantity, "quote_volume": (event.price or 0) * (event.quantity or 0), "aggressor_side": event.aggressor_side}
+            payload = {
+                **common,
+                "event_id": event.event_id,
+                "trade_id": event.trade_id,
+                "price": event.price,
+                "quantity": event.quantity,
+                "quote_volume": (event.price or 0) * (event.quantity or 0),
+                "aggressor_side": event.aggressor_side,
+            }
         else:
-            payload = {**common, "event_id": event.event_id, "price": event.price, "quantity": event.quantity, "USD_value": (event.price or 0) * (event.quantity or 0), "side": "unknown", "liquidation_type": "UNKNOWN"}
+            payload = {
+                **common,
+                "event_id": event.event_id,
+                "price": event.price,
+                "quantity": event.quantity,
+                "USD_value": (event.price or 0) * (event.quantity or 0),
+                "side": "unknown",
+                "liquidation_type": "UNKNOWN",
+            }
         return self.write_raw_event(event.dataset, payload, validation_status)
 
     def latest(self, symbol: str = "BTCUSDT") -> list[tuple]:
@@ -429,7 +604,9 @@ class DuckDBStore:
     def close(self) -> None:
         self.connection.close()
 
-    def observations(self, symbol: str, metric: str | None, limit: int, offset: int) -> list[tuple]:
+    def observations(
+        self, symbol: str, metric: str | None, limit: int, offset: int
+    ) -> list[tuple]:
         filters = ["symbol = ?"]
         params: list = [symbol]
         if metric:
@@ -444,12 +621,15 @@ class DuckDBStore:
 class PostgresStore:
     def __init__(self, dsn: str):
         import psycopg
+
         self.connection = psycopg.connect(dsn, autocommit=True)
-        self.connection.execute("""CREATE TABLE IF NOT EXISTS market_observations (
+        self.connection.execute(
+            """CREATE TABLE IF NOT EXISTS market_observations (
             event_id TEXT PRIMARY KEY, timestamp_utc TIMESTAMPTZ NOT NULL, source_timestamp_utc TIMESTAMPTZ,
             source TEXT NOT NULL, exchange TEXT NOT NULL, market_type TEXT NOT NULL, symbol TEXT NOT NULL,
             metric TEXT NOT NULL, value DOUBLE PRECISION NOT NULL, metadata JSONB NOT NULL DEFAULT '{}'::jsonb
-        )""")
+        )"""
+        )
 
     def write(self, observations: list[Observation]) -> int:
         inserted = 0
@@ -457,12 +637,25 @@ class PostgresStore:
             result = self.connection.execute(
                 """INSERT INTO market_observations (event_id, timestamp_utc, source_timestamp_utc, source, exchange, market_type, symbol, metric, value, metadata)
                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (event_id) DO NOTHING""",
-                (observation.event_id, observation.timestamp_utc, observation.source_timestamp_utc, observation.source, observation.exchange, observation.market_type, observation.symbol, observation.metric, observation.value, json.dumps(observation.metadata, sort_keys=True)),
+                (
+                    observation.event_id,
+                    observation.timestamp_utc,
+                    observation.source_timestamp_utc,
+                    observation.source,
+                    observation.exchange,
+                    observation.market_type,
+                    observation.symbol,
+                    observation.metric,
+                    observation.value,
+                    json.dumps(observation.metadata, sort_keys=True),
+                ),
             )
             inserted += result.rowcount
         return inserted
 
-    def observations(self, symbol: str, metric: str | None, limit: int, offset: int) -> list[tuple]:
+    def observations(
+        self, symbol: str, metric: str | None, limit: int, offset: int
+    ) -> list[tuple]:
         filters = ["symbol = %s"]
         params: list = [symbol]
         if metric:

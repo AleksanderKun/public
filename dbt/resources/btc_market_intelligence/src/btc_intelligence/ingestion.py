@@ -3,8 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from time import perf_counter
+from datetime import datetime
 from typing import Any
 
 from .adapters import ExchangeMarketDataAdapter, utc_now
@@ -35,16 +34,31 @@ class IngestionResult:
 
 
 class RawMarketIngestionService:
-    def __init__(self, store: Any, adapters: dict[str, ExchangeMarketDataAdapter], stale_after_seconds: int = 300):
+    def __init__(
+        self,
+        store: Any,
+        adapters: dict[str, ExchangeMarketDataAdapter],
+        stale_after_seconds: int = 300,
+    ):
         self.store = store
         self.adapters = adapters
         self.stale_after_seconds = stale_after_seconds
 
-    async def ingest(self, exchange: str, dataset: str, symbol: str = "BTCUSDT", market_type: str | None = None, limit: int = 20, depth: int = 20) -> IngestionResult:
+    async def ingest(
+        self,
+        exchange: str,
+        dataset: str,
+        symbol: str = "BTCUSDT",
+        market_type: str | None = None,
+        limit: int = 20,
+        depth: int = 20,
+    ) -> IngestionResult:
         if dataset not in DATASETS:
             raise ValueError(f"Unsupported dataset: {dataset}")
         adapter = self.adapters[exchange]
-        market_type = market_type or ("spot" if dataset == "trades" and exchange == "binance" else "perpetual")
+        market_type = market_type or (
+            "spot" if dataset == "trades" and exchange == "binance" else "perpetual"
+        )
         started = utc_now()
         result = IngestionResult(exchange, dataset, started.isoformat())
         try:
@@ -79,8 +93,14 @@ class RawMarketIngestionService:
                 if bid is None or ask is None or bid <= 0 or ask <= 0 or bid >= ask:
                     validation["status"] = "INVALID"
                     validation["reasons"].append("crossed or incomplete order book")
-                event["spread"] = ask - bid if bid is not None and ask is not None else None
-                event["spread_bps"] = event["spread"] / bid * 10000 if bid and event["spread"] is not None else None
+                event["spread"] = (
+                    ask - bid if bid is not None and ask is not None else None
+                )
+                event["spread_bps"] = (
+                    event["spread"] / bid * 10000
+                    if bid and event["spread"] is not None
+                    else None
+                )
             if validation["status"] == "INVALID":
                 result.records_invalid += 1
                 self.store.reject_raw_event(dataset, event, validation)
@@ -92,14 +112,28 @@ class RawMarketIngestionService:
                 result.records_duplicate += 1
             timestamp = event.get("event_timestamp") or event.get("timestamp")
             if timestamp:
-                result.min_timestamp = min(result.min_timestamp, timestamp) if result.min_timestamp else timestamp
-                result.max_timestamp = max(result.max_timestamp, timestamp) if result.max_timestamp else timestamp
-        status = "HEALTHY" if result.records_written or result.records_duplicate else "DEGRADED"
+                result.min_timestamp = (
+                    min(result.min_timestamp, timestamp)
+                    if result.min_timestamp
+                    else timestamp
+                )
+                result.max_timestamp = (
+                    max(result.max_timestamp, timestamp)
+                    if result.max_timestamp
+                    else timestamp
+                )
+        status = (
+            "HEALTHY"
+            if result.records_written or result.records_duplicate
+            else "DEGRADED"
+        )
         if result.records_invalid and not result.records_written:
             status = "DEGRADED"
         return self._finish(result, status)
 
-    async def ingest_exchange(self, exchange: str, symbol: str = "BTCUSDT") -> list[IngestionResult]:
+    async def ingest_exchange(
+        self, exchange: str, symbol: str = "BTCUSDT"
+    ) -> list[IngestionResult]:
         results: list[IngestionResult] = []
         trade_markets = ("spot", "perpetual")
         for market_type in trade_markets:
@@ -121,18 +155,33 @@ class RawMarketIngestionService:
             "price": event.get("price"),
             "quantity": event.get("quantity"),
         }
-        return hashlib.sha256(json.dumps(natural_key, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        return hashlib.sha256(
+            json.dumps(natural_key, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
 
     def _finish(self, result: IngestionResult, status: str) -> IngestionResult:
         finished = utc_now()
         result.finished_at = finished.isoformat()
-        result.duration_ms = round((finished - datetime.fromisoformat(result.started_at)).total_seconds() * 1000)
+        result.duration_ms = round(
+            (finished - datetime.fromisoformat(result.started_at)).total_seconds()
+            * 1000
+        )
         result.status = status
         return result
 
 
 def database_counts(store: Any) -> list[tuple[Any, ...]]:
     rows: list[tuple[Any, ...]] = []
-    for table, dataset in (("raw_trades", "trades"), ("raw_open_interest", "open_interest"), ("raw_funding", "funding"), ("raw_orderbook", "orderbook"), ("raw_liquidations", "liquidations")):
-        rows.extend(store.connection.execute(f"SELECT exchange, COUNT(*), MIN(timestamp_utc), MAX(timestamp_utc) FROM {table} GROUP BY exchange ORDER BY exchange").fetchall())
+    for table, dataset in (
+        ("raw_trades", "trades"),
+        ("raw_open_interest", "open_interest"),
+        ("raw_funding", "funding"),
+        ("raw_orderbook", "orderbook"),
+        ("raw_liquidations", "liquidations"),
+    ):
+        rows.extend(
+            store.connection.execute(
+                f"SELECT exchange, COUNT(*), MIN(timestamp_utc), MAX(timestamp_utc) FROM {table} GROUP BY exchange ORDER BY exchange"
+            ).fetchall()
+        )
     return rows

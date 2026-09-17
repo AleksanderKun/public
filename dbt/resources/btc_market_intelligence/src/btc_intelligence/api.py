@@ -9,12 +9,27 @@ from .storage import DuckDBStore, PostgresStore
 
 
 configured_database = os.getenv("BTC_MI_DATABASE_PATH")
-DEFAULT_DB = Path(configured_database) if configured_database else Path(__file__).resolve().parents[4] / "data" / "btc_market_intelligence" / "market.duckdb"
-app = FastAPI(title="BTC Market Intelligence API", version="0.1.0", description="Read-only market observations and transparent model outputs.")
+DEFAULT_DB = (
+    Path(configured_database)
+    if configured_database
+    else Path(__file__).resolve().parents[4]
+    / "data"
+    / "btc_market_intelligence"
+    / "market.duckdb"
+)
+app = FastAPI(
+    title="BTC Market Intelligence API",
+    version="0.1.0",
+    description="Read-only market observations and transparent model outputs.",
+)
 
 
 def _store() -> DuckDBStore | PostgresStore:
-    return PostgresStore(os.environ["DATABASE_URL"]) if os.getenv("DATABASE_URL") else DuckDBStore(DEFAULT_DB)
+    return (
+        PostgresStore(os.environ["DATABASE_URL"])
+        if os.getenv("DATABASE_URL")
+        else DuckDBStore(DEFAULT_DB)
+    )
 
 
 @app.get("/health")
@@ -38,16 +53,57 @@ def observations(
             params.append(metric)
         where = " AND ".join(filters)
         rows = store.observations(symbol, metric, limit, offset)
-        return {"items": [dict(zip(["timestamp_utc", "source", "exchange", "market_type", "symbol", "metric", "value", "metadata"], row)) for row in rows], "limit": limit, "offset": offset}
+        return {
+            "items": [
+                dict(
+                    zip(
+                        [
+                            "timestamp_utc",
+                            "source",
+                            "exchange",
+                            "market_type",
+                            "symbol",
+                            "metric",
+                            "value",
+                            "metadata",
+                        ],
+                        row,
+                    )
+                )
+                for row in rows
+            ],
+            "limit": limit,
+            "offset": offset,
+        }
     finally:
         store.close()
 
 
 @app.get("/market/current")
-def current(symbol: str = Query("BTCUSDT", min_length=3, max_length=30)) -> dict[str, Any]:
+def current(
+    symbol: str = Query("BTCUSDT", min_length=3, max_length=30)
+) -> dict[str, Any]:
     store = _store()
     try:
-        return {"symbol": symbol, "observations": [dict(zip(["timestamp_utc", "exchange", "market_type", "metric", "value", "metadata"], row)) for row in store.latest(symbol)]}
+        return {
+            "symbol": symbol,
+            "observations": [
+                dict(
+                    zip(
+                        [
+                            "timestamp_utc",
+                            "exchange",
+                            "market_type",
+                            "metric",
+                            "value",
+                            "metadata",
+                        ],
+                        row,
+                    )
+                )
+                for row in store.latest(symbol)
+            ],
+        }
     finally:
         store.close()
 
@@ -57,33 +113,56 @@ def _metric_data(metric: str, symbol: str, limit: int, offset: int) -> dict[str,
 
 
 @app.get("/data/price")
-def price(symbol: str = "BTCUSDT", limit: int = Query(100, ge=1, le=1000), offset: int = Query(0, ge=0)) -> dict[str, Any]:
+def price(
+    symbol: str = "BTCUSDT",
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
     return _metric_data("price", symbol, limit, offset)
 
 
 @app.get("/data/oi")
-def open_interest(symbol: str = "BTCUSDT", limit: int = Query(100, ge=1, le=1000), offset: int = Query(0, ge=0)) -> dict[str, Any]:
+def open_interest(
+    symbol: str = "BTCUSDT",
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
     return _metric_data("open_interest", symbol, limit, offset)
 
 
 @app.get("/data/funding")
-def funding(symbol: str = "BTCUSDT", limit: int = Query(100, ge=1, le=1000), offset: int = Query(0, ge=0)) -> dict[str, Any]:
+def funding(
+    symbol: str = "BTCUSDT",
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
     return _metric_data("funding_rate", symbol, limit, offset)
 
 
 @app.get("/data/options")
-def options(symbol: str = "BTC", limit: int = Query(100, ge=1, le=1000), offset: int = Query(0, ge=0)) -> dict[str, Any]:
+def options(
+    symbol: str = "BTC",
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
     return _metric_data("options_open_interest", symbol, limit, offset)
 
 
 @app.get("/data/macro")
-def macro(series_id: str = Query("DFF", min_length=2, max_length=30), limit: int = Query(100, ge=1, le=1000), offset: int = Query(0, ge=0)) -> dict[str, Any]:
+def macro(
+    series_id: str = Query("DFF", min_length=2, max_length=30),
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
     return _metric_data("macro_value", series_id, limit, offset)
 
 
 @app.get("/market/regime")
 def regime() -> dict[str, Any]:
-    return {"status": "insufficient_data", "message": "At least two comparable observations per metric are required; no model output is fabricated."}
+    return {
+        "status": "insufficient_data",
+        "message": "At least two comparable observations per metric are required; no model output is fabricated.",
+    }
 
 
 @app.get("/market/scenarios")
@@ -98,7 +177,11 @@ def score() -> dict[str, Any]:
 
 @app.get("/market/liquidity")
 def liquidity() -> dict[str, Any]:
-    return {"status": "insufficient_data", "zones": [], "message": "Liquidity zones require historical highs/lows or order-book/liquidation observations."}
+    return {
+        "status": "insufficient_data",
+        "zones": [],
+        "message": "Liquidity zones require historical highs/lows or order-book/liquidation observations.",
+    }
 
 
 @app.get("/market/report")
