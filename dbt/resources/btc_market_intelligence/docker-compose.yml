@@ -1,0 +1,49 @@
+services:
+  api:
+    build: .
+    command: uvicorn btc_intelligence.api:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - btcmi_data:/app/data
+    environment:
+      BTC_MI_DATABASE_PATH: /app/data/market.duckdb
+      DATABASE_URL: postgresql://btcmi:change-me-local-only@timescaledb:5432/btc_market_intelligence
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  websocket-worker:
+    build: .
+    command: python /app/run_websockets.py
+    volumes:
+      - btcmi_data:/app/data
+    environment:
+      BTC_MI_DATABASE_PATH: /app/data/market.duckdb
+      DATABASE_URL: postgresql://btcmi:change-me-local-only@timescaledb:5432/btc_market_intelligence
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_DB: btc_market_intelligence
+      POSTGRES_USER: btcmi
+      POSTGRES_PASSWORD: change-me-local-only
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U btcmi -d btc_market_intelligence"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - btcmi_pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+
+volumes:
+  btcmi_pgdata:
+  btcmi_data:

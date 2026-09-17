@@ -39,3 +39,11 @@ src/cv/**/*.out
 src/cv/personal-data.local.js
 src/cv/private/
 src/cv/**/*.local.*
+.aider*
+.env
+.env
+.env
+.env
+.env
+.env
+.env

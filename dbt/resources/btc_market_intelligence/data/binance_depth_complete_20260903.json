@@ -1,0 +1,148 @@
+[
+  {
+    "exchange": "binance",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T18:57:58.675124+00:00",
+    "last_event_time": "2026-09-03T18:58:57.001095+00:00",
+    "events_received": 79,
+    "events_written": 83,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 75,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 1,
+    "updates": 75,
+    "book_resyncs": 75,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 75,
+    "written_updates": 76,
+    "generated_snapshots": 7,
+    "written_snapshots": 7,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 76,
+    "bridge_found": 1,
+    "bridge_failures": 0,
+    "synchronizer_state": "SYNCHRONIZED",
+    "synchronizer_classifications": {
+      "stale": 74,
+      "duplicate": 0,
+      "overlap": 0,
+      "continuation": 1,
+      "gap": 0
+    },
+    "state_transitions": [
+      {
+        "timestamp": "2026-09-03T18:57:57.380999+00:00",
+        "old_state": "DISCONNECTED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.492544+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.492544+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.675124+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.769216+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.870878+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.972955+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.972955+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.972955+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T18:57:58.972955+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      }
+    ],
+    "gap_diagnostics": [],
+    "snapshot_last_update_id": 11467481459599,
+    "last_buffer_diagnostics": {
+      "buffered_count": 4,
+      "min_U": 11467481435236,
+      "max_u": 11467481462392,
+      "lastUpdateId": 11467481459599
+    },
+    "exchange_event_to_receive": {
+      "mean": 24354.2,
+      "median": 24582.95,
+      "p95": 49051.69,
+      "p99": 50257.1,
+      "max": 50257.1
+    },
+    "queue_wait": {
+      "mean": 9.96,
+      "median": 0.0,
+      "p95": 78.0,
+      "p99": 171.0,
+      "max": 171.0
+    },
+    "database_write": {
+      "mean": 290.04,
+      "median": 78.0,
+      "p95": 2547.0,
+      "p99": 2859.0,
+      "max": 2859.0
+    },
+    "total_local_processing": {
+      "mean": 758.46,
+      "median": 500.0,
+      "p95": 3032.0,
+      "p99": 3781.0,
+      "max": 3781.0
+    },
+    "event_to_db_commit": {
+      "mean": 26124.39,
+      "median": 25801.2,
+      "p95": 49153.69,
+      "p99": 50763.94,
+      "max": 50763.94
+    }
+  }
+]

@@ -1,0 +1,160 @@
+[
+  {
+    "exchange": "binance",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T18:59:57.238927+00:00",
+    "last_event_time": "2026-09-03T19:00:56.697563+00:00",
+    "events_received": 187,
+    "events_written": 201,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 1,
+    "updates": 181,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 181,
+    "written_updates": 183,
+    "generated_snapshots": 18,
+    "written_snapshots": 18,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 182,
+    "bridge_found": 1,
+    "bridge_failures": 0,
+    "synchronizer_state": "SYNCHRONIZED",
+    "synchronizer_classifications": {
+      "stale": 0,
+      "duplicate": 0,
+      "overlap": 0,
+      "continuation": 182,
+      "gap": 0
+    },
+    "state_transitions": [
+      {
+        "timestamp": "2026-09-03T18:59:55.990275+00:00",
+        "old_state": "DISCONNECTED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.051944+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.051944+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.238927+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.238927+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.330298+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.432764+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.535044+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.637052+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.637052+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.637052+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T18:59:57.637052+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      }
+    ],
+    "gap_diagnostics": [],
+    "snapshot_last_update_id": 11467492298628,
+    "last_buffer_diagnostics": {
+      "buffered_count": 6,
+      "min_U": 11467492248926,
+      "max_u": 11467492309550,
+      "lastUpdateId": 11467492298628
+    },
+    "exchange_event_to_receive": {
+      "mean": 18639.5,
+      "median": 17921.02,
+      "p95": 37979.49,
+      "p99": 38213.79,
+      "max": 40451.56
+    },
+    "queue_wait": {
+      "mean": 5.76,
+      "median": 0.0,
+      "p95": 62.0,
+      "p99": 78.0,
+      "max": 79.0
+    },
+    "database_write": {
+      "mean": 293.76,
+      "median": 63.0,
+      "p95": 2563.0,
+      "p99": 2719.0,
+      "max": 2750.0
+    },
+    "total_local_processing": {
+      "mean": 301.08,
+      "median": 63.0,
+      "p95": 2610.0,
+      "p99": 2781.0,
+      "max": 2812.0
+    },
+    "event_to_db_commit": {
+      "mean": 19343.67,
+      "median": 20118.95,
+      "p95": 38081.49,
+      "p99": 38315.79,
+      "max": 40553.56
+    }
+  }
+]

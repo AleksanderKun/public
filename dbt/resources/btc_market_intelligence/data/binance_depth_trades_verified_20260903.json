@@ -1,0 +1,334 @@
+[
+  {
+    "exchange": "binance",
+    "dataset": "trades",
+    "connection_time": "2026-09-03T19:01:41.683053+00:00",
+    "first_event_time": "2026-09-03T19:01:43.053692+00:00",
+    "last_event_time": "2026-09-03T19:02:41.925858+00:00",
+    "events_received": 199,
+    "events_written": 199,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 1,
+    "dropped_events": 0,
+    "database_write_batches": 199,
+    "exchange_event_to_receive": {
+      "mean": 29353.49,
+      "median": 33393.92,
+      "p95": 49538.63,
+      "p99": 50305.66,
+      "max": 52231.86
+    },
+    "queue_wait": {
+      "mean": 230.4,
+      "median": 47.0,
+      "p95": 2000.0,
+      "p99": 3875.0,
+      "max": 4140.0
+    },
+    "database_write": {
+      "mean": 65.93,
+      "median": 62.0,
+      "p95": 109.0,
+      "p99": 172.0,
+      "max": 188.0
+    },
+    "total_local_processing": {
+      "mean": 296.33,
+      "median": 109.0,
+      "p95": 2062.0,
+      "p99": 4000.0,
+      "max": 4250.0
+    },
+    "event_to_db_commit": {
+      "mean": 29649.83,
+      "median": 33488.09,
+      "p95": 49633.18,
+      "p99": 52231.86,
+      "max": 52342.4
+    }
+  },
+  {
+    "exchange": "binance",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T19:01:43.007261+00:00",
+    "last_event_time": "2026-09-03T19:02:41.863275+00:00",
+    "events_received": 169,
+    "events_written": 168,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 2,
+    "updates": 151,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 151,
+    "written_updates": 153,
+    "generated_snapshots": 15,
+    "written_snapshots": 15,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 153,
+    "bridge_found": 2,
+    "bridge_failures": 0,
+    "synchronizer_state": "SYNCHRONIZED",
+    "synchronizer_classifications": {
+      "stale": 0,
+      "duplicate": 0,
+      "overlap": 0,
+      "continuation": 151,
+      "gap": 0
+    },
+    "state_transitions": [
+      {
+        "timestamp": "2026-09-03T19:01:41.701053+00:00",
+        "old_state": "DISCONNECTED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:42.874589+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:42.874589+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.008259+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.008259+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.050692+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.311902+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.405803+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.494336+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.494336+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.494336+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:01:43.494336+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:33.915014+00:00",
+        "old_state": "SYNCHRONIZED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.100036+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.100036+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.290878+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.356574+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.424124+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.485521+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.552939+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.620390+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.677324+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.779659+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.877986+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:35.977359+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:36.076575+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:36.177883+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:36.177883+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:36.177883+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:02:36.177883+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      }
+    ],
+    "gap_diagnostics": [],
+    "snapshot_last_update_id": 11467512310214,
+    "last_buffer_diagnostics": {
+      "buffered_count": 12,
+      "min_U": 11467512190562,
+      "max_u": 11467512325329,
+      "lastUpdateId": 11467512310214
+    },
+    "exchange_event_to_receive": {
+      "mean": 15602.34,
+      "median": 12806.9,
+      "p95": 34996.02,
+      "p99": 36773.21,
+      "max": 36774.43
+    },
+    "queue_wait": {
+      "mean": 71.87,
+      "median": 63.0,
+      "p95": 125.0,
+      "p99": 188.0,
+      "max": 203.0
+    },
+    "database_write": {
+      "mean": 271.15,
+      "median": 62.0,
+      "p95": 2016.0,
+      "p99": 3766.0,
+      "max": 4078.0
+    },
+    "total_local_processing": {
+      "mean": 343.67,
+      "median": 125.0,
+      "p95": 2110.0,
+      "p99": 3969.0,
+      "max": 4203.0
+    },
+    "event_to_db_commit": {
+      "mean": 17549.18,
+      "median": 15943.25,
+      "p95": 35105.52,
+      "p99": 36875.21,
+      "max": 36876.42
+    }
+  }
+]

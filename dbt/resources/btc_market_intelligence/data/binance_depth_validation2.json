@@ -1,0 +1,68 @@
+[
+  {
+    "exchange": "binance",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-08-22T17:58:16.356228+00:00",
+    "last_event_time": "2026-08-22T17:59:07.294432+00:00",
+    "events_received": 17,
+    "events_written": 0,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 6,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 0,
+    "dropped_events": 0,
+    "database_write_batches": 0,
+    "exchange_event_to_receive": {
+      "mean": -64.73,
+      "median": -83.25,
+      "p95": 64.78,
+      "p99": 64.78,
+      "max": 64.78
+    },
+    "queue_wait": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "database_write": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "total_local_processing": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "event_to_db_commit": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    }
+  }
+]

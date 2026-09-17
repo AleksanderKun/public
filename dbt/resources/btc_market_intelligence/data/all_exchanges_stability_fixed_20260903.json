@@ -1,0 +1,3202 @@
+[
+  {
+    "exchange": "binance",
+    "dataset": "trades",
+    "connection_time": "2026-09-03T19:12:59.059827+00:00",
+    "first_event_time": "2026-09-03T19:13:00.823273+00:00",
+    "last_event_time": "2026-09-03T19:17:59.107392+00:00",
+    "events_received": 556,
+    "events_written": 556,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [
+      "socket closed: code=1006 reason="
+    ],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 1,
+    "dropped_events": 0,
+    "database_write_batches": 556,
+    "exchange_event_to_receive": {
+      "mean": 78435.16,
+      "median": 71263.78,
+      "p95": 172625.91,
+      "p99": 182419.71,
+      "max": 186528.39
+    },
+    "queue_wait": {
+      "mean": 453.49,
+      "median": 140.0,
+      "p95": 2063.0,
+      "p99": 2406.0,
+      "max": 4156.0
+    },
+    "database_write": {
+      "mean": 52.16,
+      "median": 47.0,
+      "p95": 63.0,
+      "p99": 78.0,
+      "max": 156.0
+    },
+    "total_local_processing": {
+      "mean": 505.65,
+      "median": 188.0,
+      "p95": 2125.0,
+      "p99": 2453.0,
+      "max": 4218.0
+    },
+    "event_to_db_commit": {
+      "mean": 78940.9,
+      "median": 71875.75,
+      "p95": 172816.22,
+      "p99": 184581.4,
+      "max": 188656.68
+    }
+  },
+  {
+    "exchange": "binance",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T19:13:00.822273+00:00",
+    "last_event_time": "2026-09-03T19:17:59.153492+00:00",
+    "events_received": 551,
+    "events_written": 482,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 3,
+    "updates": 436,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 436,
+    "written_updates": 439,
+    "generated_snapshots": 43,
+    "written_snapshots": 43,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 439,
+    "bridge_found": 3,
+    "bridge_failures": 0,
+    "synchronizer_state": "SYNCHRONIZED",
+    "synchronizer_classifications": {
+      "stale": 0,
+      "duplicate": 0,
+      "overlap": 0,
+      "continuation": 436,
+      "gap": 0
+    },
+    "state_transitions": [
+      {
+        "timestamp": "2026-09-03T19:12:59.072828+00:00",
+        "old_state": "DISCONNECTED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:00.489456+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:00.489456+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:00.822273+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:00.876223+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:00.985145+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:01.078145+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:01.169930+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:01.261658+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:01.303662+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.351897+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.453627+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.500163+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.685618+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.782620+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.927105+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.927105+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.927105+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.927105+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:03.927105+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.072104+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.072104+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.072104+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.072104+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.072104+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.244104+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.244104+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.244104+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.244104+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.244104+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.405210+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.405210+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.405210+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.405210+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.405210+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.507335+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.507335+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.507335+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.507335+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.507335+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.653748+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.653748+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.653748+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.653748+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.653748+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.908862+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.908862+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.908862+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.908862+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:04.908862+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:05.063910+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:05.063910+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:05.063910+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:05.063910+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:05.063910+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.492758+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.492758+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.492758+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.492758+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.492758+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.659299+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.659299+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.659299+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.659299+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.659299+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.808019+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.808019+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.808019+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.808019+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.808019+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.953033+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.953033+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.953033+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.953033+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:07.953033+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.098954+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.098954+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.098954+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.098954+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.098954+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.242733+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.242733+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.242733+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.242733+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.242733+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.446902+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.446902+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.446902+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.446902+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.446902+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.591911+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.591911+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.591911+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.591911+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.591911+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.739474+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.739474+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.739474+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.739474+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.739474+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.885536+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.885536+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.885536+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.885536+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:08.885536+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:09.028555+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:09.028555+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:09.028555+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:09.028555+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:09.028555+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.190844+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.190844+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.190844+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.190844+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.190844+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.362556+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.362556+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.362556+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:13:11.362556+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:49.972447+00:00",
+        "old_state": "SYNCHRONIZED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:53.692587+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:53.692587+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:53.965643+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:54.449137+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:54.589176+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:54.729226+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:56.697913+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:56.854128+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:56.995814+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:57.129888+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:57.262567+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:57.405057+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:57.537058+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:57.670269+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.257992+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.257992+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.257992+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.257992+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.257992+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.388900+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.388900+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.388900+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.388900+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.388900+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.743293+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.743293+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.743293+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.743293+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:15:58.743293+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.709674+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.709674+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.709674+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.709674+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.709674+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.866040+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.866040+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.866040+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.866040+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:00.866040+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.814750+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.814750+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.814750+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.814750+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.814750+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.947748+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.947748+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.947748+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.947748+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:02.947748+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.078882+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.078882+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.078882+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.078882+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.078882+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.208275+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.208275+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.208275+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.208275+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.208275+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.346286+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.346286+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.346286+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.346286+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.346286+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.478001+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.478001+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.478001+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.478001+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.478001+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.609013+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.609013+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.609013+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.609013+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.609013+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.739001+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.739001+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.739001+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.739001+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:03.739001+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:04.331294+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:04.331294+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:04.331294+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:04.331294+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:04.331294+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.318698+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.318698+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.318698+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.318698+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.318698+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.479258+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.479258+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.479258+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.479258+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.479258+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.617272+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.617272+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.617272+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.617272+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.617272+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.756704+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.756704+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.756704+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.756704+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.756704+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.890240+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.890240+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.890240+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.890240+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:06.890240+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.034006+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.034006+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.034006+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.034006+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.034006+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.168561+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.168561+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.168561+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.168561+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.168561+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.309920+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.309920+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.309920+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.309920+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.309920+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.442242+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.442242+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.442242+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.442242+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.442242+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.577690+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.577690+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.577690+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.577690+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:07.577690+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.518221+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.518221+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.518221+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.518221+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.518221+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.673412+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.673412+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.673412+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.673412+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.673412+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.825762+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.825762+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.825762+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.825762+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.825762+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.958779+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.958779+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.958779+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.958779+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:09.958779+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.556080+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.556080+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.556080+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.556080+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.556080+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.698081+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.698081+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.698081+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.698081+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:10.698081+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.089030+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.089030+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.089030+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.089030+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.089030+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.222087+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.222087+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.222087+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.222087+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.222087+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.362541+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.362541+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.362541+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:16:11.362541+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:05.354712+00:00",
+        "old_state": "SYNCHRONIZED",
+        "new_state": "CONNECTING",
+        "reason": "websocket connection opened"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:07.074224+00:00",
+        "old_state": "CONNECTING",
+        "new_state": "BUFFERING",
+        "reason": "depth buffering started before REST snapshot"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:07.074224+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_REQUEST",
+        "reason": "initial_sync"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:07.347980+00:00",
+        "old_state": "SNAPSHOT_REQUEST",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:09.386044+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:09.530071+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:09.678797+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:09.817334+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:09.972707+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.140450+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.288933+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.433831+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.584855+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.738696+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.885908+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.885908+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.885908+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.885908+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:10.885908+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:12.925047+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:12.925047+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:12.925047+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:12.925047+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:12.925047+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.066923+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.066923+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.066923+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.066923+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.066923+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.209458+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.209458+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.209458+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.209458+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.209458+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.350582+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.350582+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.350582+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.350582+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.350582+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.492877+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.492877+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.492877+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.492877+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.492877+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.632613+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.632613+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.632613+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.632613+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.632613+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.771394+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.771394+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.771394+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.771394+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.771394+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.910662+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.910662+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.910662+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.910662+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:13.910662+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.054384+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.054384+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.054384+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.054384+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.054384+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.193998+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.193998+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.193998+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.193998+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.193998+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.342082+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.342082+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.342082+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.342082+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:14.342082+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.405650+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.405650+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.405650+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.405650+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.405650+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.907407+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.907407+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.907407+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.907407+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:16.907407+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.050073+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.050073+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.050073+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.050073+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.050073+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.196196+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.196196+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.196196+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.196196+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.196196+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.342724+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.342724+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.342724+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.342724+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.342724+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.508132+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.508132+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.508132+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.508132+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.508132+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.651627+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.651627+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.651627+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.651627+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.651627+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.804335+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.804335+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.804335+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.804335+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.804335+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.948162+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.948162+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.948162+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.948162+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:17.948162+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.090176+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.090176+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.090176+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.090176+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.090176+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.232884+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.232884+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.232884+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.232884+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.232884+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.375606+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.375606+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.375606+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.375606+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.375606+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.526186+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.526186+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.526186+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.526186+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "DESYNCHRONIZED",
+        "reason": "no bridge update in bounded buffer"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:18.526186+00:00",
+        "old_state": "DESYNCHRONIZED",
+        "new_state": "BUFFERING",
+        "reason": "all buffered updates stale; waiting for post-snapshot bridge"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:20.565191+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "BUFFERING",
+        "reason": "depth update received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:20.565191+00:00",
+        "old_state": "BUFFERING",
+        "new_state": "SNAPSHOT_LOADING",
+        "reason": "REST snapshot received"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:20.565191+00:00",
+        "old_state": "SNAPSHOT_LOADING",
+        "new_state": "SYNCHRONIZING",
+        "reason": "searching for bridge update"
+      },
+      {
+        "timestamp": "2026-09-03T19:17:20.565191+00:00",
+        "old_state": "SYNCHRONIZING",
+        "new_state": "SYNCHRONIZED",
+        "reason": "bridge and buffered continuation applied"
+      }
+    ],
+    "gap_diagnostics": [],
+    "snapshot_last_update_id": 11467628888289,
+    "last_buffer_diagnostics": {
+      "buffered_count": 37,
+      "min_U": 11467628416561,
+      "max_u": 11467628893395,
+      "lastUpdateId": 11467628888289
+    },
+    "exchange_event_to_receive": {
+      "mean": 46516.4,
+      "median": 35069.51,
+      "p95": 125549.58,
+      "p99": 135635.29,
+      "max": 137881.08
+    },
+    "queue_wait": {
+      "mean": 246.27,
+      "median": 94.0,
+      "p95": 1969.0,
+      "p99": 2188.0,
+      "max": 2375.0
+    },
+    "database_write": {
+      "mean": 217.56,
+      "median": 47.0,
+      "p95": 1875.0,
+      "p99": 2109.0,
+      "max": 2907.0
+    },
+    "total_local_processing": {
+      "mean": 464.41,
+      "median": 141.0,
+      "p95": 2125.0,
+      "p99": 2688.0,
+      "max": 4203.0
+    },
+    "event_to_db_commit": {
+      "mean": 57428.66,
+      "median": 44606.68,
+      "p95": 128396.6,
+      "p99": 137740.2,
+      "max": 138062.45
+    }
+  },
+  {
+    "exchange": "bybit",
+    "dataset": "trades",
+    "connection_time": "2026-09-03T19:12:59.550857+00:00",
+    "first_event_time": "2026-09-03T19:13:04.653748+00:00",
+    "last_event_time": "2026-09-03T19:17:58.212070+00:00",
+    "events_received": 324,
+    "events_written": 324,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [
+      "socket closed: code=1006 reason="
+    ],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 36,
+    "dropped_events": 0,
+    "database_write_batches": 561,
+    "exchange_event_to_receive": {
+      "mean": 75864.54,
+      "median": 55710.04,
+      "p95": 164185.17,
+      "p99": 168157.07,
+      "max": 168157.07
+    },
+    "queue_wait": {
+      "mean": 696.6,
+      "median": 344.0,
+      "p95": 2485.0,
+      "p99": 3110.0,
+      "max": 3266.0
+    },
+    "database_write": {
+      "mean": 50.91,
+      "median": 47.0,
+      "p95": 63.0,
+      "p99": 78.0,
+      "max": 78.0
+    },
+    "total_local_processing": {
+      "mean": 747.56,
+      "median": 391.0,
+      "p95": 2547.0,
+      "p99": 3157.0,
+      "max": 3313.0
+    },
+    "event_to_db_commit": {
+      "mean": 76613.11,
+      "median": 56109.29,
+      "p95": 164522.77,
+      "p99": 168849.89,
+      "max": 169000.3
+    }
+  },
+  {
+    "exchange": "bybit",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T19:13:00.323039+00:00",
+    "last_event_time": "2026-09-03T19:18:01.235677+00:00",
+    "events_received": 471,
+    "events_written": 518,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 3,
+    "updates": 471,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 471,
+    "written_updates": 471,
+    "generated_snapshots": 47,
+    "written_snapshots": 47,
+    "write_errors": 0,
+    "queue_max_seen": 36,
+    "dropped_events": 0,
+    "database_write_batches": 561,
+    "exchange_event_to_receive": {
+      "mean": 71572.07,
+      "median": 71023.07,
+      "p95": 145773.65,
+      "p99": 167152.4,
+      "max": 171147.68
+    },
+    "queue_wait": {
+      "mean": 277.55,
+      "median": 141.0,
+      "p95": 2000.0,
+      "p99": 2281.0,
+      "max": 3125.0
+    },
+    "database_write": {
+      "mean": 213.81,
+      "median": 47.0,
+      "p95": 1875.0,
+      "p99": 2016.0,
+      "max": 2281.0
+    },
+    "total_local_processing": {
+      "mean": 491.4,
+      "median": 187.0,
+      "p95": 2125.0,
+      "p99": 2468.0,
+      "max": 4250.0
+    },
+    "event_to_db_commit": {
+      "mean": 72181.91,
+      "median": 71342.13,
+      "p95": 146119.18,
+      "p99": 167289.07,
+      "max": 171292.14
+    }
+  },
+  {
+    "exchange": "bybit",
+    "dataset": "liquidations",
+    "connection_time": null,
+    "first_event_time": null,
+    "last_event_time": null,
+    "events_received": 0,
+    "events_written": 0,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 36,
+    "dropped_events": 0,
+    "database_write_batches": 561,
+    "exchange_event_to_receive": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "queue_wait": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "database_write": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "total_local_processing": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "event_to_db_commit": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    }
+  },
+  {
+    "exchange": "okx",
+    "dataset": "trades",
+    "connection_time": "2026-09-03T19:12:59.743154+00:00",
+    "first_event_time": "2026-09-03T19:13:03.550610+00:00",
+    "last_event_time": "2026-09-03T19:18:01.334879+00:00",
+    "events_received": 310,
+    "events_written": 310,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [
+      "socket closed: code=1006 reason="
+    ],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 552,
+    "exchange_event_to_receive": {
+      "mean": 133141.72,
+      "median": 148091.29,
+      "p95": 233306.67,
+      "p99": 239171.25,
+      "max": 241811.03
+    },
+    "queue_wait": {
+      "mean": 399.82,
+      "median": 110.0,
+      "p95": 2047.0,
+      "p99": 2390.0,
+      "max": 4172.0
+    },
+    "database_write": {
+      "mean": 52.69,
+      "median": 47.0,
+      "p95": 63.0,
+      "p99": 78.0,
+      "max": 94.0
+    },
+    "total_local_processing": {
+      "mean": 452.51,
+      "median": 172.0,
+      "p95": 2094.0,
+      "p99": 2453.0,
+      "max": 4219.0
+    },
+    "event_to_db_commit": {
+      "mean": 133594.44,
+      "median": 148230.5,
+      "p95": 233449.17,
+      "p99": 239308.79,
+      "max": 241957.86
+    }
+  },
+  {
+    "exchange": "okx",
+    "dataset": "orderbook",
+    "connection_time": null,
+    "first_event_time": "2026-09-03T19:13:03.453627+00:00",
+    "last_event_time": "2026-09-03T19:17:59.198831+00:00",
+    "events_received": 243,
+    "events_written": 267,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 244,
+    "updates": 243,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 243,
+    "written_updates": 243,
+    "generated_snapshots": 24,
+    "written_snapshots": 24,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 552,
+    "exchange_event_to_receive": {
+      "mean": 91378.44,
+      "median": 84143.95,
+      "p95": 213856.32,
+      "p99": 242013.79,
+      "max": 244581.19
+    },
+    "queue_wait": {
+      "mean": 436.3,
+      "median": 141.0,
+      "p95": 2094.0,
+      "p99": 2344.0,
+      "max": 3828.0
+    },
+    "database_write": {
+      "mean": 83.53,
+      "median": 47.0,
+      "p95": 469.0,
+      "p99": 531.0,
+      "max": 782.0
+    },
+    "total_local_processing": {
+      "mean": 519.83,
+      "median": 188.0,
+      "p95": 2172.0,
+      "p99": 2516.0,
+      "max": 3875.0
+    },
+    "event_to_db_commit": {
+      "mean": 92262.03,
+      "median": 84323.83,
+      "p95": 214496.23,
+      "p99": 242628.86,
+      "max": 244674.53
+    }
+  },
+  {
+    "exchange": "okx",
+    "dataset": "liquidations",
+    "connection_time": null,
+    "first_event_time": null,
+    "last_event_time": null,
+    "events_received": 0,
+    "events_written": 0,
+    "duplicates": 0,
+    "invalid": 0,
+    "sequence_gaps": 0,
+    "reconnects": 0,
+    "latencies_ms": null,
+    "snapshots": 0,
+    "updates": 0,
+    "book_resyncs": 0,
+    "errors": [],
+    "exchange_event_to_receive_ms": null,
+    "queue_wait_ms": null,
+    "database_write_ms": null,
+    "total_local_processing_ms": null,
+    "event_to_db_commit_ms": null,
+    "received_updates": 0,
+    "written_updates": 0,
+    "generated_snapshots": 0,
+    "written_snapshots": 0,
+    "write_errors": 0,
+    "queue_max_seen": 2,
+    "dropped_events": 0,
+    "database_write_batches": 552,
+    "exchange_event_to_receive": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "queue_wait": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "database_write": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "total_local_processing": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    },
+    "event_to_db_commit": {
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    }
+  }
+]
