@@ -29,3 +29,6 @@ pylint==3.0.0               # Code analyzer
 # Documentation
 sphinx==7.2.0               # Documentation generator
 sphinx-rtd-theme==2.0.0     # Read the Docs theme
+
+# GUI
+PyQt5==5.15.9               # GUI framework
