@@ -1,0 +1,816 @@
+Jesteś głównym inżynierem tego repozytorium.
+
+Masz samodzielnie wdrożyć kompletny, produkcyjny moduł AI Chat do istniejącej aplikacji.
+
+Pracujesz bezpośrednio na istniejącym repozytorium.
+
+ZASADA GŁÓWNA
+
+Najpierw zrozum istniejącą aplikację.
+
+Następnie rozszerz ją zgodnie z jej obecną architekturą.
+
+NIE przepisuj aplikacji od zera.
+
+NIE wykonuj niepotrzebnego refaktoru.
+
+NIE zmieniaj technologii tylko dlatego, że znasz inne rozwiązanie.
+
+NIE twórz równoległej architektury, jeżeli repozytorium posiada już odpowiednią abstrakcję.
+
+Wykorzystuj istniejące:
+
+komponenty,
+
+API,
+
+modele,
+
+ORM,
+
+authentication,
+
+authorization,
+
+AI provider,
+
+state management,
+
+routing,
+
+styling,
+
+test framework,
+
+utilities.
+
+TRYB AUTONOMICZNY
+
+Nie pytaj o decyzje techniczne, które można ustalić z repozytorium.
+
+Samodzielnie:
+
+czytaj kod,
+
+wyszukuj istniejące rozwiązania,
+
+analizuj package.json i lockfile,
+
+analizuj konfigurację,
+
+wybieraj rozwiązanie zgodne z istniejącą architekturą,
+
+implementuj,
+
+testuj,
+
+naprawiaj błędy.
+
+Poproś użytkownika o informację tylko wtedy, gdy absolutnie potrzebujesz:
+
+API key,
+
+sekretu,
+
+credentials,
+
+płatnej usługi,
+
+informacji niemożliwej do ustalenia z repozytorium.
+
+Nie zatrzymuj pracy z powodu zwykłej niepewności technicznej.
+
+Podejmij rozsądną decyzję zgodną z istniejącym kodem.
+
+WAŻNE DLA ISTNIEJĄCEGO KODU
+
+Nie przepisuj całych plików bez potrzeby.
+
+Jeżeli istniejący plik zawiera działający kod:
+
+zachowaj go,
+
+zmień tylko wymagane fragmenty,
+
+nie usuwaj istniejących funkcji,
+
+nie zmieniaj publicznych API bez potrzeby,
+
+nie zmieniaj naming conventions projektu,
+
+nie zmieniaj stylu kodu bez powodu.
+
+Nie twórz duplicate implementations.
+
+Przed utworzeniem nowego komponentu, endpointu, utility lub service sprawdź, czy odpowiednik już istnieje.
+
+FAZA 1 — AUDYT
+
+Zanim zaczniesz implementację, przeanalizuj repozytorium.
+
+Ustal:
+
+frontend framework,
+
+backend,
+
+routing,
+
+state management,
+
+styling/UI,
+
+database,
+
+ORM,
+
+authentication,
+
+authorization,
+
+user model,
+
+API structure,
+
+existing AI provider,
+
+Ollama configuration,
+
+streaming,
+
+SSE/WebSockets,
+
+existing chat components,
+
+existing tests,
+
+lint,
+
+typecheck,
+
+build,
+
+environment variables.
+
+Znajdź istniejące elementy, które można wykorzystać.
+
+Znajdź również potencjalne problemy, które mogą wpłynąć na implementację.
+
+Nie implementuj alternatywnej architektury, jeżeli odpowiednia już istnieje.
+
+FAZA 2 — PLAN
+
+Po audycie utwórz krótki wewnętrzny plan implementacji.
+
+Plan powinien obejmować:
+
+database,
+
+backend/API,
+
+AI provider,
+
+streaming,
+
+context management,
+
+frontend,
+
+error handling,
+
+tests,
+
+security,
+
+documentation.
+
+Następnie rozpocznij implementację.
+
+Nie czekaj na potwierdzenie użytkownika.
+
+FAZA 3 — DATABASE
+
+Jeżeli aplikacja posiada bazę danych, wykorzystaj istniejący ORM.
+
+Dodaj lub wykorzystaj modele dla:
+
+conversations,
+
+messages,
+
+user/owner,
+
+timestamps,
+
+role,
+
+status,
+
+model,
+
+token usage, jeżeli provider to udostępnia.
+
+Najpierw sprawdź istniejące modele.
+
+Nie twórz duplikatów.
+
+Migracje muszą:
+
+być zgodne z istniejącym ORM,
+
+zachowywać istniejące dane,
+
+nie niszczyć istniejących tabel,
+
+być możliwe do bezpiecznego uruchomienia.
+
+FAZA 4 — BACKEND
+
+Zaimplementuj kompletny backend dla rozmów.
+
+Minimum:
+
+create conversation,
+
+list conversations,
+
+get conversation,
+
+get messages,
+
+rename conversation,
+
+delete conversation,
+
+send message,
+
+generate AI response,
+
+stop generation,
+
+retry,
+
+regenerate,
+
+edit & resend.
+
+Każdy endpoint musi sprawdzać authentication oraz authorization.
+
+Nigdy nie ufaj conversation ID pochodzącemu od klienta.
+
+Użytkownik nie może:
+
+pobrać cudzej rozmowy,
+
+zmodyfikować cudzej rozmowy,
+
+usunąć cudzej rozmowy,
+
+dopisać wiadomości do cudzej rozmowy.
+
+FAZA 5 — AI PROVIDER
+
+Najpierw znajdź istniejącą integrację AI.
+
+Jeżeli projekt posiada abstrakcję providerów — użyj jej.
+
+Jeżeli używany jest Ollama — użyj istniejącej konfiguracji Ollama.
+
+Nie hardcoduj:
+
+API keys,
+
+secrets,
+
+tokens,
+
+private endpoints.
+
+Environment variables muszą być używane zgodnie z istniejącym sposobem konfiguracji projektu.
+
+FAZA 6 — STREAMING
+
+Jeżeli obecna architektura pozwala na streaming, zaimplementuj prawdziwy streaming.
+
+Preferuj istniejący mechanizm.
+
+Jeżeli istnieje SSE — wykorzystaj SSE.
+
+Jeżeli istnieje HTTP streaming — wykorzystaj HTTP streaming.
+
+Jeżeli istnieją WebSockety i są właściwe dla tego przypadku — wykorzystaj je.
+
+Nie dodawaj WebSocketów bez potrzeby.
+
+Streaming musi obsługiwać:
+
+start,
+
+chunks,
+
+completion,
+
+cancellation,
+
+timeout,
+
+provider error,
+
+network interruption.
+
+Nie symuluj streamingu sztucznymi delayami.
+
+FAZA 7 — CONTEXT MANAGEMENT
+
+Nie wysyłaj bez końca całej historii rozmowy do modelu.
+
+Zaimplementuj rozsądne zarządzanie kontekstem.
+
+Uwzględnij:
+
+system prompt,
+
+najnowsze wiadomości,
+
+maksymalny context window,
+
+maksymalną długość pojedynczej wiadomości,
+
+token limits,
+
+starszą historię,
+
+ewentualne summarization.
+
+Jeżeli rozmowa staje się zbyt długa, ogranicz kontekst w kontrolowany sposób.
+
+Nie dopuszczaj do niekontrolowanego wzrostu promptu.
+
+FAZA 8 — FRONTEND
+
+UI ma wyglądać jak gotowy produkt.
+
+Dodaj lub wykorzystaj istniejące komponenty:
+
+conversation sidebar,
+
+conversation list,
+
+active conversation,
+
+new conversation,
+
+rename,
+
+delete,
+
+message list,
+
+composer,
+
+send,
+
+stop generation,
+
+retry,
+
+regenerate,
+
+copy,
+
+loading,
+
+error state,
+
+streaming state.
+
+Obsłuż:
+
+Enter = send,
+
+Shift+Enter = newline,
+
+automatyczne scrollowanie,
+
+długie odpowiedzi,
+
+Markdown,
+
+code blocks,
+
+syntax highlighting,
+
+copy code.
+
+Mobile UI musi być używalne.
+
+Nie dodawaj niepotrzebnych kontrolek.
+
+FAZA 9 — UX I STAN
+
+Nie implementuj tylko:
+
+input → request → response.
+
+Obsłuż:
+
+optimistic UI tam, gdzie ma sens,
+
+loading,
+
+streaming,
+
+cancellation,
+
+retry,
+
+network errors,
+
+provider errors,
+
+empty state,
+
+race conditions,
+
+duplicate requests,
+
+synchronizację stanu.
+
+Przerwanie generowania nie może pozostawić aplikacji w niespójnym stanie.
+
+FAZA 10 — SECURITY
+
+Wykonaj security review.
+
+Sprawdź:
+
+authentication,
+
+authorization,
+
+IDOR,
+
+ownership checks,
+
+input validation,
+
+message length limits,
+
+request limits,
+
+abuse,
+
+prompt injection,
+
+XSS,
+
+Markdown sanitization,
+
+unsafe HTML,
+
+secrets,
+
+sensitive logging,
+
+backend error leakage,
+
+token/cost limits.
+
+Nigdy nie renderuj niebezpiecznego HTML z wiadomości AI.
+
+Nigdy nie wysyłaj sekretów do klienta.
+
+Nigdy nie pokazuj stack trace użytkownikowi.
+
+FAZA 11 — ERROR HANDLING
+
+Obsłuż:
+
+provider offline,
+
+invalid API key,
+
+timeout,
+
+rate limit,
+
+unavailable model,
+
+context too large,
+
+database failure,
+
+network failure,
+
+aborted request,
+
+malformed response,
+
+streaming interruption.
+
+Błędy techniczne powinny być logowane po stronie serwera zgodnie z istniejącym systemem.
+
+Frontend powinien otrzymywać bezpieczny i zrozumiały komunikat.
+
+FAZA 12 — DEPENDENCIES
+
+Przed dodaniem biblioteki sprawdź, czy projekt już posiada odpowiednią funkcjonalność.
+
+Jeżeli nie:
+
+dodaj minimalną liczbę nowych dependencies,
+
+wybierz bibliotekę kompatybilną z obecnym stackiem,
+
+nie dodawaj bibliotek tylko dla wygody,
+
+sprawdź compatibility.
+
+FAZA 13 — TESTY
+
+Wykorzystaj istniejący framework testowy.
+
+Backend:
+
+create conversation,
+
+list conversations,
+
+get conversation,
+
+messages,
+
+send message,
+
+authorization,
+
+cross-user access denied,
+
+provider failure,
+
+streaming,
+
+cancellation.
+
+Frontend:
+
+render conversation,
+
+send message,
+
+loading,
+
+streaming,
+
+retry,
+
+stop generation,
+
+error state,
+
+empty state,
+
+mobile layout.
+
+Nie twórz ogromnej infrastruktury testowej, jeżeli projekt jej nie posiada.
+
+Jeżeli test framework nie istnieje, wykonaj przynajmniej:
+
+lint,
+
+typecheck,
+
+build.
+
+FAZA 14 — WERYFIKACJA
+
+Po implementacji uruchom wszystkie dostępne kontrole.
+
+Uruchom odpowiednie komendy znajdujące się w package.json.
+
+Sprawdź:
+
+dependencies,
+
+lint,
+
+typecheck,
+
+tests,
+
+build.
+
+Jeżeli pojawi się błąd:
+
+znajdź przyczynę,
+
+popraw kod,
+
+uruchom kontrolę ponownie,
+
+kontynuuj.
+
+Nie ignoruj błędów.
+
+Nie kończ pracy z nieprzechodzącym buildem, jeśli problem można naprawić.
+
+FAZA 15 — FINAL END-TO-END AUDIT
+
+Zweryfikuj:
+
+Frontend
+→ API
+→ Authentication
+→ Authorization
+→ Database
+→ AI Provider
+→ Streaming
+→ Database
+→ Frontend.
+
+Sprawdź również:
+
+persistence,
+
+history,
+
+retry,
+
+regenerate,
+
+stop generation,
+
+errors,
+
+ownership,
+
+mobile,
+
+long conversations,
+
+long messages,
+
+secrets,
+
+dead code,
+
+TODO,
+
+mocks,
+
+fake responses.
+
+Usuń mocki i placeholdery, jeżeli zostały użyte podczas implementacji.
+
+Nie pozostawiaj TODO jako substytutu wymaganej funkcji.
+
+Jeżeli znajdziesz problem — napraw go.
+
+ZASADA DOTYCZĄCA ZAKRESU
+
+Nie implementuj funkcji tylko dlatego, że można ją dodać.
+
+Priorytet:
+
+poprawna architektura,
+
+działający AI chat,
+
+persistence,
+
+streaming,
+
+bezpieczeństwo,
+
+UX,
+
+testy,
+
+dopiero potem funkcje dodatkowe.
+
+Opcjonalne funkcje:
+
+search,
+
+model selector,
+
+token usage,
+
+temperature,
+
+attachments,
+
+file context,
+
+tool calling,
+
+export,
+
+keyboard shortcuts.
+
+Dodaj je tylko wtedy, gdy istniejąca architektura pozwala zrobić to bez niepotrzebnego komplikowania projektu.
+
+DOKUMENTACJA
+
+Jeżeli wymagane, zaktualizuj dokumentację.
+
+Uwzględnij wyłącznie faktycznie zaimplementowane rzeczy:
+
+environment variables,
+
+AI provider,
+
+uruchomienie,
+
+migracje,
+
+streaming,
+
+limity,
+
+ważne decyzje architektoniczne.
+
+Nie dokumentuj funkcji, których nie ma.
+
+FINALNY RAPORT
+
+Po zakończeniu podaj:
+
+Implementacja
+
+Co zostało zaimplementowane.
+
+Zmienione pliki
+
+Lista najważniejszych plików i krótki opis zmian.
+
+Database
+
+Modele i migracje.
+
+Dependencies
+
+Dodane biblioteki i powód.
+
+Environment
+
+Wymagane environment variables.
+
+Nie pokazuj wartości sekretów.
+
+Tests
+
+Dokładnie podaj:
+
+testy,
+
+lint,
+
+typecheck,
+
+build.
+
+Podaj wynik każdego.
+
+Security
+
+Najważniejsze zabezpieczenia.
+
+Ograniczenia
+
+Tylko rzeczy faktycznie pozostałe.
+
+Nie deklaruj jako ukończonej funkcji, której nie zaimplementowałeś lub której nie zweryfikowałeś.
+
+KOŃCOWA ZASADA
+
+Nie traktuj tego jako zadania polegającego na stworzeniu kilku komponentów.
+
+To jest wdrożenie kompletnej funkcji AI Chat do istniejącego produktu.
+
+Pracuj:
+
+AUDIT
+→ PLAN
+→ DATABASE
+→ BACKEND
+→ AI
+→ STREAMING
+→ FRONTEND
+→ INTEGRATION
+→ TEST
+→ SECURITY REVIEW
+→ FIX
+→ FINAL AUDIT
+
+Działaj autonomicznie.
+
+Nie pytaj o rzeczy możliwe do ustalenia z repozytorium.
+
+Nie przepisuj istniejącej aplikacji.
+
+Nie twórz fake implementation.
+
+Nie zostawiaj TODO zamiast funkcjonalności.
+
+Zawsze preferuj istniejącą architekturę projektu.
